@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>test</title>
+    <%= stylesheet_link_tag 'main', :media => 'screen' %>
+  </head>
+  <body>
+    <div class="container">
+      <div id="header">
+        <%= image_tag("logo.png", :alt => "Sample App", :class => "round") %>
+        <ul class="navigation round">
+          <li><%= link_to "Home", '/' %></li>
+          <li><%= link_to "Help", '#' %></li>
+          <li><%= link_to "Sign in", '/login' %></li>
+          <li><%= link_to "Sign up", '/signup' %></li>
+        </ul>
+      </div>
+      <div id="content" class="round">
+        <%= yield %>
+      </div>
+    </div>
+    <div id="footer">
+      <ul class="navigation round">
+        <li><%= link_to "About", '#' %></li>
+        <li><%= link_to "Contact", '#' %></li>
+      </ul>
+    </div>
+
+  </body>
+</html>
+

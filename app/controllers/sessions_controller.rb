@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
 
   def create
     logout_keeping_session!
+debugger
     user = User.authenticate(params[:login], params[:password])
     if user
       # Protects against session fixation attacks, causes request forgery
