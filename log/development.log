@@ -2971,3 +2971,10 @@ Processing MainController#index (for 127.0.0.1 at 2010-06-27 11:21:12) [GET]
 Rendering template within layouts/application
 Rendering main/index
 Completed in 96ms (View: 90, DB: 8) | 200 OK [http://localhost/]
+
+
+Processing MainController#index (for 127.0.0.1 at 2010-06-28 10:49:11) [GET]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+Rendering template within layouts/application
+Rendering main/index
+Completed in 86ms (View: 66, DB: 0) | 200 OK [http://localhost/]
