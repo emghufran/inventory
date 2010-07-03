@@ -10,13 +10,17 @@
       <div id="header">
         <%= image_tag("logo.png", :alt => "Sample App", :class => "round") %>
         <ul class="navigation round">
-	  <li><%= "Welcome, " + session[:user_name].blank? ? 'Guest!' : session[:user_name] %>	
+		<%debugger %>
+	  <li><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %>	
           <li><%= link_to "Home", '/' %></li>
-          <li><%= link_to "Help", '#' %></li>
+          <!-- <li><%= link_to "Help", '#' %></li> --> 
 	  <% if(session[:user_id].blank? or session[:user_id] <= 0) %>
             <li><%= link_to "Sign in", '/login' %></li>
             <li><%= link_to "Sign up", '/signup' %></li>
-	  <% elsif session[:role_id] == 3%>
+	  <% else %>
+            <li><%= link_to "Sign out", '/logout' %></li>
+	  <% end %>
+	  <% if session[:role_id] == 3%>
             <li><%= link_to "Admin", '/admin' %></li>
 	  <% end %>
         </ul>
