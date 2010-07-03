@@ -105,4 +105,6 @@ a.signup_button {
 #footer .navigation {
   float: none;
 }
-
+.notice {
+  background-color: #cccccc;
+}

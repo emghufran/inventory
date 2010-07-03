@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
 
   def create
     logout_keeping_session!
-debugger
     user = User.authenticate(params[:login], params[:password])
     if user
       # Protects against session fixation attacks, causes request forgery
@@ -19,6 +18,8 @@ debugger
       self.current_user = user
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
+      session[:user_name] = user.name
+      session[:role_id] = user.role_id
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else
