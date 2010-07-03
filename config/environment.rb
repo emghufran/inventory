@@ -72,5 +72,17 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
-  # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+  
+ # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 end
+ActionMailer::Base.delivery_method = :smtp
+ActionMailer::Base.default_content_type = "text/html"
+ActionMailer::Base.smtp_settings = {
+  :tls => true,
+  :address => "smtp.gmail.com",
+  :port => "587",
+  :domain => "Explosives Inventory",
+  :authentication => :plain,
+  :user_name => "explosive.inventory",
+  :password => "s1mPs0ns"
+}
