@@ -1,0 +1,35 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  part_number: MyString
+  description: MyString
+  lawson_price: 9.99
+  box_size: MyString
+  un_num: 1
+  class: MyString
+  package_quantity: 1
+  package_type: MyString
+  gross_weight: 9.99
+  net_weight: 9.99
+  gm_box: 9.99
+  gm_unit: 9.99
+  um: MyString
+  spf: 
+  updated_at: 2010-07-03 16:59:42
+
+two:
+  part_number: MyString
+  description: MyString
+  lawson_price: 9.99
+  box_size: MyString
+  un_num: 1
+  class: MyString
+  package_quantity: 1
+  package_type: MyString
+  gross_weight: 9.99
+  net_weight: 9.99
+  gm_box: 9.99
+  gm_unit: 9.99
+  um: MyString
+  spf: 
+  updated_at: 2010-07-03 16:59:42
