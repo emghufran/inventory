@@ -1,0 +1,13 @@
+<table border="1" cellpadding="3" >
+  <tr>
+  <td><%= label_tag 'Bunker Name'%></td>
+  <td><%= label_tag 'Location' %></td>
+  </tr>
+<tr>
+  <td><%= label_tag @bunker[:name]%></td>
+  <td><%= label_tag @bunker[:location] %></td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_bunker_path(@bunker) %> |
+<%= link_to 'Back', bunkers_path %>

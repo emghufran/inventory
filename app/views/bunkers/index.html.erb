@@ -1,0 +1,22 @@
+<h1>Listing bunkers</h1>
+
+<table border="1" cellpadding="3" >
+  <tr>
+  <td><%= label_tag 'Bunker Name'%></td>
+  <td><%= label_tag 'Location' %></td>
+  </tr>
+
+<% for bunker in @bunkers %>
+  <tr>
+    <td><%= label_tag bunker[:name]%></td>
+    <td><%= label_tag bunker[:location] %></td>
+    <td><%= link_to 'Show', bunker %></td>
+    <td><%= link_to 'Edit', edit_bunker_path(bunker) %></td>
+    <td><%= link_to 'Destroy', bunker, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New bunker', new_bunker_path %>

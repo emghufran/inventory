@@ -2,7 +2,34 @@
 
 <% form_for(@product) do |f| %>
   <%= f.error_messages %>
-
+<p><%= label_tag 'Part Number' %>&nbsp;
+  <%= f.text_field :part_number %></p>
+  <p><%= label_tag 'Description' %>&nbsp;
+  <%= f.text_field :description %></p>
+  <p><%= label_tag 'Lawson price' %>&nbsp;
+  <%= f.text_field :lawson_price %></p>
+  <p><%= label_tag 'Box Size' %>&nbsp;
+  <%= f.text_field :box_size %></p>
+  <p><%= label_tag 'UN Number' %>&nbsp;
+  <%= f.text_field :un_num %></p>
+  <p><%= label_tag 'Class' %>&nbsp;
+  <%= f.text_field :class_name %></p>
+  <p><%= label_tag 'Package Quantity' %>&nbsp;
+  <%= f.text_field :package_quantity %></p>
+  <p><%= label_tag 'Package Type' %>&nbsp;
+  <%= f.text_field :package_type %></p>
+  <p><%= label_tag 'Gross Weigh' %>&nbsp;
+  <%= f.text_field :gross_weight %></p>
+  <p><%= label_tag 'Net Weight' %>&nbsp;
+  <%= f.text_field :net_weight %></p>
+  <p><%= label_tag 'GM per Box' %>&nbsp;
+  <%= f.text_field :gm_box %></p>
+  <p><%= label_tag 'GM per Unit' %>&nbsp;
+  <%= f.text_field :gm_unit %></p>
+  <p><%= label_tag 'UM' %>&nbsp;
+  <%= f.text_field :um %></p>
+  <p><%= label_tag 'SPF' %>&nbsp;
+  <%= f.text_field :spf %></p>
   <p>
     <%= f.submit "Update" %>
   </p>

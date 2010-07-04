@@ -1,11 +1,44 @@
-<h1>Listing products</h1>
+<h1>Listing Parts</h1>
 
-<table>
+<table border="1" cellpadding="3" >
   <tr>
+  <td><%= label_tag 'Part Number'%></td>
+  <td><%= label_tag 'Description' %></td>
+  <td><%= label_tag 'Lawson price' %></td>
+  <td><%= label_tag 'Box Size' %></td>
+  <td><%= label_tag 'UN Number' %></td>
+  <td><%= label_tag 'Class' %></td>
+  <td><%= label_tag 'Package Quantity' %></td>
+  <td><%= label_tag 'Package Type' %></td>
+  <td><%= label_tag 'Gross Weight' %></td>
+  <td><%= label_tag 'Net Weight' %></td>
+  <td><%= label_tag 'GM per Box' %></td>
+  <td><%= label_tag 'GM per Unit' %></td>
+  <td><%= label_tag 'UM' %></td>
+  <td><%= label_tag 'SPF' %></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  
   </tr>
 
 <% for product in @products %>
+
   <tr>
+  <td><%= label_tag product[:part_number]%></td>
+  <td><%= label_tag product[:description] %></td>
+  <td><%= label_tag product[:lawson_price] %></td>
+  <td><%= label_tag product[:box_size] %></td>
+  <td><%= label_tag product[:un_num] %></td>
+  <td><%= label_tag product[:class_name] %></td>
+  <td><%= label_tag product[:package_quantity] %></td>
+  <td><%= label_tag product[:package_type] %></td>
+  <td><%= label_tag product[:gross_weight] %></td>
+  <td><%= label_tag product[:net_weight] %></td>
+  <td><%= label_tag product[:gm_box] %></td>
+  <td><%= label_tag product[:gm_unit] %></td>
+  <td><%= label_tag product[:um] %></td>
+  <td><%= label_tag product[:spf] %></td>
     <td><%= link_to 'Show', product %></td>
     <td><%= link_to 'Edit', edit_product_path(product) %></td>
     <td><%= link_to 'Destroy', product, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -15,4 +48,4 @@
 
 <br />
 
-<%= link_to 'New product', new_product_path %>
+<%= link_to 'Add new part', new_product_path %>

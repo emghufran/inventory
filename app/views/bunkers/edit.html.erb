@@ -1,0 +1,15 @@
+<h1>Editing bunker</h1>
+
+<% form_for(@bunker) do |f| %>
+  <%= f.error_messages %>
+  <p><%= label_tag 'Name' %>&nbsp;
+  <%= f.text_field :name %></p>
+  <p><%= label_tag 'Location' %>&nbsp;
+  <%= select_tag "bunker[location]", options_for_select([ "Islamabad", "Khaskeili", "Sukhar" ], @bunker[:location]) %></p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @bunker %> |
+<%= link_to 'Back', bunkers_path %>
