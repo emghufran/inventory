@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.update_inventory "/products/update_inventory", :controller => 'products', :action => 'update_inventory'
+  map.resources :bunkers
+
   map.resources :products
 
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
