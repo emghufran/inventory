@@ -88,13 +88,16 @@ class ProductsController < ApplicationController
     @existing_quantity = 0
     @products = Product.find(:all,:order => 'id ASC')
     @bunkers = Bunker.find(:all, :order => 'id ASC')
-    debugger
     product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", @products[0].id, @bunkers[0].id] ) if @bunkers and @products
-    @existing_quantity = product_count.quantity if product_count
+    @existing_quantity = product_count.quantity unless product_count.nil?
+  end
+
+  def get_existing_quantity
+    product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", params[:part_id], params[:bunker_id]] )
+    render :text=> (product_count.nil? ? 0 : product_count.quantity)
   end
 
   def update_inventory_submit
-    debugger
     @inventory = UpdateInventory.find(:first, :conditions => ["part_id = ? and bunker_id = ?", params[:update_inventory][:part_number], params[:update_inventory][:bunker]]) || UpdateInventory.new
     @inventory.part_id = params[:update_inventory][:part_number]
     @inventory.bunker_id = params[:update_inventory][:bunker]

@@ -1,11 +1,10 @@
-<html>
   <form action="/products/update_inventory_submit" method="post">
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
   <table>
     <tr>
       <td> Part No:</td>
       <td>
-        <select id="part_number" name="update_inventory[part_number]">
+        <select id="part_number" name="update_inventory[part_number]" onchange="updateQuanity()">
         <% @products.each do |p| %>
         <option value="<%=p.id%>" ><%=p.part_number%></option>
         <%end%>
@@ -15,7 +14,7 @@
     <tr>
       <td> Description:</td>
       <td>
-        <select id="description" name="update_inventory[description]">
+        <select id="description" disabled="true" name="update_inventory[description]">
         <% @products.each do |p| %>
         <option value="<%=p.id%>" ><%=p.description%></option>
         <%end%>
@@ -66,4 +65,3 @@
     </tr>
     </table>
  </form>
-</html>

@@ -1,7 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
   map.new_job "/jobs/new", :controller => 'jobs', :action => 'new'
   map.edit_job "/jobs/edit/:id", :controller => 'jobs', :action => 'edit'
-
+  
+  map.get_existing_quantity "/products/get_existing_quantity", :controller => 'products', :action => 'get_existing_quantity'
   map.update_inventory "/products/update_inventory", :controller => 'products', :action => 'update_inventory'
   map.resources :bunkers
 
