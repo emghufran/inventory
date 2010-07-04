@@ -1,0 +1,14 @@
+<html>
+  <table>
+    <tr>
+      <td> Part No:</td>
+      <td>
+        <select >
+        <% @products.each do |p| %>
+        <option value="<%=p.id%>" ><%=p.part_number%></option>
+        <%end%>
+      </select>
+    </td>
+    </tr>
+    </table>
+</html>

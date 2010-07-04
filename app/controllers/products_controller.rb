@@ -83,4 +83,9 @@ class ProductsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def update_inventory
+    @products = Product.find(:all)
+    @bunkers = Bunker.find(:all)
+  end
 end
