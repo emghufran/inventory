@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  layout 'application'
   # GET /products
   # GET /products.xml
   def index

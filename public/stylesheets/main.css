@@ -108,3 +108,11 @@ a.signup_button {
 .notice {
   background-color: #cccccc;
 }
+.pending-user div {
+    width: 200px;
+    float:left;
+}
+.pending-user-header {
+    width:200px;
+    float: left;
+}
