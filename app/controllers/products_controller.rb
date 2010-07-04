@@ -85,7 +85,24 @@ class ProductsController < ApplicationController
   end
 
   def update_inventory
-    @products = Product.find(:all)
-    @bunkers = Bunker.find(:all)
+    @existing_quantity = 0
+    @products = Product.find(:all,:order => 'id ASC')
+    @bunkers = Bunker.find(:all, :order => 'id ASC')
+    debugger
+    product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", @products[0].id, @bunkers[0].id] ) if @bunkers and @products
+    @existing_quantity = product_count.quantity if product_count
+  end
+
+  def update_inventory_submit
+    debugger
+    @inventory = UpdateInventory.find(:first, :conditions => ["part_id = ? and bunker_id = ?", params[:update_inventory][:part_number], params[:update_inventory][:bunker]]) || UpdateInventory.new
+    @inventory.part_id = params[:update_inventory][:part_number]
+    @inventory.bunker_id = params[:update_inventory][:bunker]
+    @inventory.quantity = params[:update_inventory][:new_quantity]
+    if @inventory.save
+        flash[:notice] = 'Inventory updated successfully.'
+    else
+        flash[:notice] = 'Inventory cannot be updated at this time.'
+    end
   end
 end

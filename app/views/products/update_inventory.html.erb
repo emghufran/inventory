@@ -1,14 +1,69 @@
 <html>
+  <form action="/products/update_inventory_submit" method="post">
+  <input name="authenticity_token" type="hidden" value="16d5d7e95f68c88517bd51da5a64f99f45449b62" />
   <table>
     <tr>
       <td> Part No:</td>
       <td>
-        <select >
+        <select id="part_number" name="update_inventory[part_number]">
         <% @products.each do |p| %>
         <option value="<%=p.id%>" ><%=p.part_number%></option>
         <%end%>
       </select>
     </td>
     </tr>
+    <tr>
+      <td> Description:</td>
+      <td>
+        <select id="description" name="update_inventory[description]">
+        <% @products.each do |p| %>
+        <option value="<%=p.id%>" ><%=p.description%></option>
+        <%end%>
+      </select>
+    </td>
+    </tr>
+    <tr>
+      <td> Bunker:</td>
+      <td>
+        <select id="bunker" name="update_inventory[bunker]">
+        <% @bunkers.each do |p| %>
+        <option value="<%=p.id%>" ><%=p.name%></option>
+        <%end%>
+      </select>
+    </td>
+    </tr>
+    <tr>
+      <td> Existing Quantity:</td>
+      <td>
+        <label id="exisitng_quantity" ><%=@exisiting_quantity%></label>
+    </td>
+    </tr>
+    <tr>
+      <td> New Quantity:</td>
+      <td>
+        <input type="text" id="new_quantity" name="update_inventory[new_quantity]" />
+    </td>
+    </tr>
+    <tr>
+      <td> Change:</td>
+      <td>
+        <label id="changed_quantity" ></label>
+    </td>
+    </tr>
+    <tr>
+      <td> Justification:</td>
+      <td>
+        <input type="text" id="justification" name="update_inventory[justification]" />
+    </td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td>
+        <p>
+          <input id="update_inventory_submit" name="commit" type="submit" value="Update" />
+      </p>
+    </td>
+    </tr>
     </table>
+ </form>
 </html>
