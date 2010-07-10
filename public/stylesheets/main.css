@@ -116,3 +116,10 @@ a.signup_button {
     width:200px;
     float: left;
 }
+span.error{
+  background:#FFD5D5; /*url(../images/error.gif) no-repeat scroll 10px 50%;*/
+  border:1px solid #FFACAD;
+  color:#CF3738;
+  margin-top:5px;
+}
+
