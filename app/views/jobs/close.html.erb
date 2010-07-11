@@ -1,0 +1,36 @@
+<p>Close Job</p>
+<!-- render details of Job table here.. -->
+
+<input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
+<input type="hidden" value="<%=@job.id%>" id="job_id"/>
+<div><span id="error" class='error' style="display:none;"></div>
+<table>
+<tr><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Consumed</th><th>Signed In</th><th>Junk</th></tr>
+<% if(@job_details.length == 0) %>
+<span class="alert">There are currently no parts assosiated with this job.</span>
+<% end %>
+<% count = 1 %>
+<% @job_details.each do |j| %>
+	<tr>
+		<%part_bunker = "p#{j.part_id}b#{j.bunker_id}j#{j.job_id}"%>
+		<td><%=count%></td>
+		<td><%= resize_string(j.part_desc) %></td>
+		<td><%=j.bunker_name%></td>
+		<td class="quantity" id="<%='curr_'+part_bunker%>"><%=j.quantity%>
+			<input type="hidden" id="quantity_<%=part_bunker%>" name="quantity[]" value="<%=j.quantity%>"/>
+		</td>
+		<td>
+			<input type="text" id="consumed_<%=part_bunker%>" name="consumed[]" />
+		</td>
+		<td>
+			<input type="text" id="signin_<%=part_bunker%>" name="signin[]" />
+		</td>
+		<td>
+			<input type="text" id="junk_<%=part_bunker%>" name="junk[]" />
+		</td>
+	</tr>
+	
+	<% count += 1 %>
+<% end %>
+</table>
+<a href="javascript:;" onclick="validateAndClose(); return false;">Close</a>

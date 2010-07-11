@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100707203531) do
+ActiveRecord::Schema.define(:version => 20100710080142) do
 
   create_table "bunkers", :force => true do |t|
     t.string   "name"
@@ -20,14 +20,20 @@ ActiveRecord::Schema.define(:version => 20100707203531) do
     t.datetime "updated_at"
   end
 
-  create_table "jobs", :force => true do |t|
+  create_table "job_details", :force => true do |t|
+    t.integer  "job_id"
     t.integer  "part_id"
-    t.integer  "user_id"
     t.integer  "bunker_id"
     t.integer  "quantity"
     t.integer  "consumed"
     t.integer  "junk"
     t.integer  "sign_in"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "jobs", :force => true do |t|
+    t.integer  "user_id"
     t.string   "engineer"
     t.string   "gun_shop_superviser"
     t.string   "truck"
@@ -35,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20100707203531) do
     t.string   "well"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",              :limit => 40
   end
 
   create_table "movements", :force => true do |t|

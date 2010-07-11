@@ -1,4 +1,39 @@
+<p>Job Details</p>
+<!-- render details of Job table here.. -->
+<input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
+<input type="hidden" value="<%=@job.id%>" id="job_id"/>
 <div><span id="error" class='error' style="display:none;"></div>
+<table>
+<tr><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Avail. Quantity</th><th></th><th></th></tr>
+<% if(@job_details.length == 0) %>
+<span class="alert">There are currently no parts assosiated with this job.</span>
+<% end %>
+<% count = 1 %>
+<% @job_details.each do |j| %>
+	<tr>
+		<%part_bunker = "p#{j.part_id}b#{j.bunker_id}j#{j.job_id}"%>
+		<td><%=count%></td>
+		<td><%= resize_string(j.part_desc) %></td>
+		<td><%=j.bunker_name%></td>
+		<td id="<%='curr_'+part_bunker%>"><%=j.quantity%></td>
+		<td id="<%='avail_'+part_bunker%>"><%=j.available_quantity%></td>
+		<td>
+			<% unique_id = 'change_' + part_bunker %>
+			<a onclick="$('<%=unique_id%>').show();" href="javascript:;">Change</a>
+			<div id = "<%=unique_id %>" style="display:none;">
+				<input type="text" id = "<%='val_' + part_bunker %>" value = "" />
+				<a href="javascript:;" onclick="validateAndUpdateJobProduct('<%=part_bunker%>'); return false;">Go</a>
+			</div>
+		</td>
+		<td><a href="javascript:;" onclick="removeProductFromJob('<%=part_bunker%>'); return false;">Remove</a></td>
+	</tr>
+	
+	<% count += 1 %>
+<% end %>
+</table>
+
+<!--Add HTML Starts HERE -->
+<div style="clear:both;"></div>
 <div style="float:left;">
 <select name="products" id="products" onchange="updateQuantity(this.value, document.getElementById('bunkers').value, 'available-quantity'); updateProductDescription(this.value, 'product-description');">
 <% @products.each do |p| %>
@@ -21,7 +56,7 @@
 <div style="clear:both;"></div>
 <div class="product-list" id="product-list"></div>
 <div style="clear:both;"></div>
-<div><a href="javascript:;" onclick="createJob();">Create</a></div>
+<div><a href="javascript:;" onclick="addProductsToExistingJob();">Add new Parts</a></div>
 <div style="clear:both;"></div>
 <div class="product-list-hid" id="product-list-hid" style="display:none;"></div>
 <% @products.each do |p| %>
@@ -31,4 +66,3 @@
 <% @bunkers.each do |b| %>
   <input type="hidden" id='<%= "bunker_#{b.id}" %>' value="<%=b.name%>" />
 <%end%>
-

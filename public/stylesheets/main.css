@@ -123,3 +123,9 @@ span.error{
   margin-top:5px;
 }
 
+span.alert {
+  background:#FFF3A3; /*url(../images/alert.png) no-repeat scroll 5px 3px;*/
+  border:1px solid #E7BD72;
+  color:#B79000;
+  margin-top:5px;
+}
