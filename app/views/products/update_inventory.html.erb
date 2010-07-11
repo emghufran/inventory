@@ -4,7 +4,7 @@
     <tr>
       <td> Part No:</td>
       <td>
-        <select id="part_number" name="update_inventory[part_number]" onchange="updateQuanity()">
+        <select id="part_number" name="update_inventory[part_number]" onchange="updateInventoryStats()">
         <% @products.each do |p| %>
         <option value="<%=p.id%>" ><%=p.part_number%></option>
         <%end%>
@@ -24,7 +24,7 @@
     <tr>
       <td> Bunker:</td>
       <td>
-        <select id="bunker" name="update_inventory[bunker]">
+        <select id="bunker" name="update_inventory[bunker]" onchange="updateInventoryStats()">
         <% @bunkers.each do |p| %>
         <option value="<%=p.id%>" ><%=p.name%></option>
         <%end%>
@@ -34,13 +34,14 @@
     <tr>
       <td> Existing Quantity:</td>
       <td>
-        <label id="exisitng_quantity" ><%=@exisiting_quantity%></label>
+        <%debugger%>
+        <label id="exisitng_quantity" ><%=@existing_quantity%></label>
     </td>
     </tr>
     <tr>
       <td> New Quantity:</td>
       <td>
-        <input type="text" id="new_quantity" name="update_inventory[new_quantity]" />
+        <input type="text" id="new_quantity" name="update_inventory[new_quantity]" onchange="changeQuantity()" />
     </td>
     </tr>
     <tr>

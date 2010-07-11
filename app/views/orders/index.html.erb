@@ -1,0 +1,33 @@
+<h1>Listing orders</h1>
+
+ <table border="1" cellpadding="3" >
+  <tr>
+  <td><%= label_tag 'Part Number'%></td>
+  <td><%= label_tag 'Description' %></td>
+  <td><%= label_tag 'Order No' %></td>
+  <td><%= label_tag 'Order Quantity' %></td>
+  <td><%= label_tag 'Order Status' %></td>
+  <td></td>
+    <td></td>
+    <td></td>
+  
+  </tr>
+
+<% for order in @orders %>
+  <tr>
+  <td><%= label_tag order[:part_number]%></td>
+  <td><%= label_tag order[:description] %></td>
+  <td><%= label_tag order[:order_number] %></td>
+  <td><%= label_tag order[:original_quantity] %></td>
+  <td><%= label_tag order[:status] %></td>
+  
+    <td><%= link_to 'Show', order %></td>
+    <td><%= link_to 'Edit', edit_order_path(order) %></td>
+    <td><%= link_to 'Cancel', order, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New order', new_order_path %>

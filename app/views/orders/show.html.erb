@@ -1,0 +1,22 @@
+<h1>Order Details</h1>
+
+ <table border="1" cellpadding="3" >
+  <tr>
+  <td><%= label_tag 'Part Number'%></td>
+  <td><%= label_tag 'Description' %></td>
+  <td><%= label_tag 'Order No' %></td>
+  <td><%= label_tag 'Order Quantity' %></td>
+  <td><%= label_tag 'Order Status' %></td>
+  </tr>
+
+  <tr>
+  <td><%= label_tag @order[:part_number]%></td>
+  <td><%= label_tag @order[:description] %></td>
+  <td><%= label_tag @order[:order_number] %></td>
+  <td><%= label_tag @order[:original_quantity] %></td>
+  <td><%= label_tag @order[:status] %></td>
+  </tr>
+</table>
+<a href="">
+<%= link_to 'Receive', '/orders/receive/'+@order[:id].to_s() %> |
+<%= link_to 'Back', orders_path %>
