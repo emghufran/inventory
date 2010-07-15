@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.add_products "/jobs/add_products", :controller => 'jobs', :action => 'add_products'
   map.view_job "/jobs/:id", :controller => 'jobs', :action => 'show', :requirements => { :id => /\d+/}
   map.close_job "/jobs/close/:id", :controller => 'jobs', :action => 'close', :requirements => { :id => /\d+/}
+  map.close_job_action "/jobs/close_job", :controller => 'jobs', :action => 'close_job', :requirements => { :id => /\d+/}  
   
   
   map.get_existing_quantity "/products/get_existing_quantity", :controller => 'products', :action => 'get_existing_quantity'
