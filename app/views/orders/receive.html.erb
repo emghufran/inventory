@@ -1,0 +1,32 @@
+<h1>Receive order</h1>
+
+<% form_for(@order) do |f| %>
+  <%= f.error_messages %>
+
+<p><%= label_tag 'Part Number' %>&nbsp;
+  <%= f.text_field :part_number,:readonly=>"true" %></p>
+  <p><%= label_tag 'Description' %>&nbsp;
+  <%= f.text_field :description,:readonly=>"true" %></p>
+  <p><%= label_tag 'Order Quantity' %>&nbsp;
+  <%= f.text_field :original_quantity ,:readonly=>"true"%></p>
+  <p><%= label_tag 'Received Quantity' %>&nbsp;
+  <%= f.text_field :received_quantity,:onchange=>"changeOrderQuantity()" %></p>
+  <p><%= label_tag 'Remaining Quantity' %>&nbsp;
+    <label id="remaining_quantity"></label>
+  </p>
+<p><%= label_tag 'Bunker' %>&nbsp;
+        <select id="bunker" name="order[bunker_id]" onchange="updateInventoryStats()">
+        <% @bunkers.each do |p| %>
+        <option value="<%=p.id%>" ><%=p.name%></option>
+        <%end%>
+      </select>
+</p>
+  <p><%= label_tag 'Order Status=' %>&nbsp;
+  <%= f.text_field :status ,:readonly=>"true"%></p>
+
+<p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', orders_path %>

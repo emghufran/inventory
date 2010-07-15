@@ -120,6 +120,23 @@ function removeProduct(unique_id) {
 function displayError(error_string) {
   $('error').replace("<span class='error' id='error'>" + error_string + "</span>");
 }
+function updateInventoryStats()
+{
+    var part_id = $('description').value = $('part_number').value;
+    updateQuantity(part_id, $('bunker').value ,'exisitng_quantity');
+}
+function changeQuantity()
+{
+    $('changed_quantity').innerHTML = $('new_quantity').value - $('exisitng_quantity').innerHTML;
+}
+function updateDescription()
+{
+    $('description').value = $('part_number').value;
+}
+function changeOrderQuantity()
+{
+    $('remaining_quantity').innerHTML = $('order_original_quantity').value - $('order_received_quantity').value;
+}
 
 function validateAndUpdateJobProduct(unique_product) {
 	var m = /p(\d+)b(\d+)j(\d+)/.exec(unique_product);

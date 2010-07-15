@@ -5,6 +5,7 @@ class CreateOrder < ActiveRecord::Migration
       t.integer :user_id
       t.integer :original_quantity
       t.integer :received_quantity
+      t.string :order_number
       t.string :status
       t.timestamps
     end

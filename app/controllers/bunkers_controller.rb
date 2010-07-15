@@ -82,4 +82,12 @@ class BunkersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  def explosives_load
+    @bunkers = Bunker.find(:all)
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @bunkers }
+    end
+  end
 end

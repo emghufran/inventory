@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :orders
+
   map.new_job "/jobs/new", :controller => 'jobs', :action => 'new'
   map.edit_job "/jobs/edit/:id", :controller => 'jobs', :action => 'edit', :requirements => { :id => /\d+/}
   map.update_product "/jobs/update_product", :controller => 'jobs', :action => 'update_product'
@@ -8,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.close_job "/jobs/close/:id", :controller => 'jobs', :action => 'close', :requirements => { :id => /\d+/}
   map.close_job_action "/jobs/close_job", :controller => 'jobs', :action => 'close_job', :requirements => { :id => /\d+/}  
   
-  
+  map.receive "/orders/receive", :controller => 'orders', :action => 'receive'
   map.get_existing_quantity "/products/get_existing_quantity", :controller => 'products', :action => 'get_existing_quantity'
   map.update_inventory "/products/update_inventory", :controller => 'products', :action => 'update_inventory'
   map.resources :bunkers

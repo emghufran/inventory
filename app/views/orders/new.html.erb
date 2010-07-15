@@ -1,0 +1,30 @@
+<h1>New order</h1>
+<% form_for(@order) do |f| %>
+  <%= f.error_messages %>
+<p> Part No:
+         <select id="part_number" name="order[part_id]" onchange="updateDescription()">
+        <% @products.each do |p| %>
+        <option value="<%=p.id%>" ><%=p.part_number%></option>
+        <%end%>
+      </select>
+</p>
+<p>      Description:
+
+        <select id="description" disabled="true" name="order[description]">
+        <% @products.each do |p| %>
+        <option value="<%=p.id%>" ><%=p.description%></option>
+        <%end%>
+      </select>
+</p>
+<p><%= label_tag 'Order No' %>&nbsp;
+  <%= f.text_field :order_number %></p>
+  <p><%= label_tag 'Order Quantity' %>&nbsp;
+  <%= f.text_field :original_quantity %></p>
+  <p><%= label_tag 'Order Status=' %>&nbsp;
+  <%= f.text_field :status,:readonly=>"true"%></p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', orders_path %>

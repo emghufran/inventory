@@ -1,0 +1,22 @@
+<h1>Editing order</h1>
+
+<% form_for(@order) do |f| %>
+  <%= f.error_messages %>
+
+<p><%= label_tag 'Part Number' %>&nbsp;
+  <%= f.text_field :part_number,:disabled=>"true" %></p>
+  <p><%= label_tag 'Description' %>&nbsp;
+  <%= f.text_field :description,:disabled=>"true" %></p>
+<p><%= label_tag 'Order No' %>&nbsp;
+  <%= f.text_field :order_number ,:disabled=>"true"%></p>
+  <p><%= label_tag 'Order Quantity' %>&nbsp;
+  <%= f.text_field :original_quantity ,:disabled=>"true"%></p>
+  <p><%= label_tag 'Order Status=' %>&nbsp;
+  <%= f.text_field :status %></p>
+
+<p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', orders_path %>
