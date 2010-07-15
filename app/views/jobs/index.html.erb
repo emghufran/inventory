@@ -4,7 +4,7 @@
 <% @jobs.each do |j| %>
 	<tr id="job_"<%=j.id%>>
 		<td><a href='/jobs/<%=j.id%>'><%=j.id%></a></td><td><%=j.engineer%></td><td><%=j.created_at%></td>
-				<td><a href="javascript:;">Close Job</a></td>	
+				<td><a href="/jobs/close/<%=j.id%>">Close Job</a></td>	
 	</tr>
 <% end %>
 </table>

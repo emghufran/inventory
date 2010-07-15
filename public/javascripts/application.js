@@ -228,14 +228,14 @@ function validateAndClose() {
 		bypass_checks = true;
 	}
 	job_id = $('job_id').value;
-	submit_val = 'job_id=' + job_id + "&";
+	submit_val = 'job_id=' + job_id + "&products=";
 	sep_str = '';
 	
 	quantities.each(function(s, index) {
 		submit_val = submit_val + sep_str;
 		sep_str = '||'; 
 
-  		unique_id = s.id.replace('quantity_', '');
+  	unique_id = s.id.replace('quantity_', '');
 		quantity = s.value;
 		consumed = parseInt($('consumed_'+unique_id).value.strip());
 		junk = parseInt($('junk_'+unique_id).value.strip());
@@ -247,7 +247,7 @@ function validateAndClose() {
 				
 		total = consumed + junk + signin;
 		query_str = "C"+consumed+":J"+junk+":S"+signin;
-		alert(query_str);
+		//alert(query_str);
 		
 		if(quantity != total) {
 			displayError("Quantitites do not match");
@@ -256,7 +256,24 @@ function validateAndClose() {
 		}
 		submit_val = submit_val + unique_id + "|" + query_str;
 	});	
-	alert(submit_val);
-	return;
-	
+	submit_val = submit_val +"&authenticity_token="+ $('authenticity_token').value;
+	//alert(submit_val);
+
+	new Ajax.Request('/jobs/close_job', {
+    method: 'post',
+    asynchronous: false,
+    parameters: submit_val,
+    onSuccess: function(transport){
+      response = transport.responseText || "no response text";
+      m = /^(SUCCESS)\|(.+)/.exec(response);
+      if(m.length == 3 && m[1] == 'SUCCESS') {//update value on screen
+        //alert(m[2]);
+      	window.location.href = m[2];
+    	} else {
+        displayError(response);
+      }
+    },
+    onFailure: function(){ alert('Something went wrong...') }
+  });
+  return;
 }

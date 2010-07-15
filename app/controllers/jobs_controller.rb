@@ -222,6 +222,7 @@ class JobsController < ApplicationController
   
   def close
   	 @job = Job.find(params[:id])
+  	 
   	 if(!@job || @job.nil?) 
   	 	render :text => "No record for the requested Job."
   	 	return
@@ -233,5 +234,53 @@ class JobsController < ApplicationController
   	 										INNER JOIN update_inventories ui ON job_details.part_id = ui.part_id AND job_details.bunker_id = ui.bunker_id ", 
   	 						:select => "job_details.*, p.part_number, p.description AS part_desc, b.name AS bunker_name, ui.quantity AS available_quantity" )
   	   
+  end
+  
+  def close_job
+    job_id = params[:job_id]
+  	@job = Job.find(job_id)
+
+  	products = params[:products]
+    products = products.split("||")
+    part_hash = {}
+    products.each do |p|
+      unique_job_params, quantities = p.split('|')
+      
+      if unique_job_params.blank? or quantities.blank?
+        render :text => "Invalid Request Parameters"
+        return
+      end
+      part_params = unique_job_params.match(/p(\d+)b(\d+)j(\d+)/)
+      if part_params.length != 4
+        render :text => "Invalid Part Parameters"
+        return
+      end
+
+      stats = quantities.split(':').collect {|q| x = q[1..-1].to_i }
+      if stats.length != 3 or stats[0] < 0 or stats[1] < 0 or stats[2] < 0
+        render :text => "Invalid Quantities provided. They can't be negative or absent."
+        return
+      end
+      j = JobDetail.find(:first, :conditions => ['job_id = ? and part_id = ? and bunker_id = ? ', job_id, part_params[1], part_params[2] ])
+      if(stats[0] + stats[1] + stats[2] < j.quantity)
+        render :text => "Closing quantities don't match checked out quantities"
+        return
+      end
+      
+      part_hash[unique_job_params] = stats
+    end
+    
+    part_hash.each do |key, val| 
+      part_params = key.match(/p(\d+)b(\d+)j(\d+)/)
+      j = JobDetail.find(:first, :conditions => ['job_id = ? and part_id = ? and bunker_id = ? ', job_id, part_params[1], part_params[2] ])
+      j.consumed = val[0]
+      j.junk = val[1]
+      j.sign_in = val[2]
+      j.save
+
+    end
+    @job.status = "Closed"
+    @job.save
+    render :text => "SUCCESS|#{SITE_URL}/jobs"
   end
 end
