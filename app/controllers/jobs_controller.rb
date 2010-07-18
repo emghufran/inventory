@@ -296,4 +296,17 @@ class JobsController < ApplicationController
     @job.save
     render :text => "SUCCESS|#{SITE_URL}/jobs"
   end
+  
+  def upload_file
+    job_id = params[:job_id]
+    redirect_url = params[:return_url]
+    post = DataFile.save(params[:upload], "job#{job_id}")
+    puts "<<<<<" + job_id + ">>>>>>"
+    job = Job.find(job_id.to_i)
+    job.attachment_path = post
+    job.save
+    
+    redirect_to :controller => 'jobs', :action => 'show', :id => job_id
+    #render :text => "done!"
+  end
 end
