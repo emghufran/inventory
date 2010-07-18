@@ -80,22 +80,35 @@ function createJob() {
       submit_value = submit_value + "||";
     }
   });
- 
-  submit_value = "products="+submit_value + "&authenticity_token="+ $('authenticity_token').value;
-  
+  engineer = $('engineer').value;
+  supervisor = $('supervisor').value;
+  truck = $('truck').value;
+  rig = $('rig').value;
+  well = $('well').value;
+  validation = validateJobGenParams(engineer, supervisor, truck, rig, well);
+  if(validation == false) {
+    return false;  
+  }
+  submit_value = "products=" + submit_value + "&authenticity_token="+ $('authenticity_token').value;
+  submit_value = submit_value + "&engineer=" + engineer + "&supervisor=" + supervisor + "&truck=" + truck + "&rig=" + rig + "&well=" + well;
+  //alert(submit_value);return;
   new Ajax.Request('/jobs/create', {
     method: 'post',
     asynchronous: false,
     parameters: submit_value ,
     onSuccess: function(transport){
       response = transport.responseText || "no response text";
-      //alert("transport: " + transport + ":: response: " + response);
-      if(parseInt(response) > 0) {
-      	hostname = window.location.hostname;
-      	hostport = window.location.port;
-      	      	 
-      	window.location.href = hostname + (hostport.length > 0 ? ':' + hostport : '') + "/view" + response;
-      } else if(update_div.length > 0) {
+      response_arr = response.split('||');
+      alert("response: " + response);
+      if(response_arr.length == 2) {
+      	window.location.href = response_arr[1];
+      //}
+      //if(parseInt(response) > 0) {
+      //	hostname = window.location.hostname;
+      //	hostport = window.location.port;
+      //	      	 
+      //	window.location.href = hostname + (hostport.length > 0 ? ':' + hostport : '') + "/view" + response;
+      } else {
         displayError(response);
         //document.getElementById(update_div).innerHTML = response;
       }
@@ -108,6 +121,26 @@ function createJob() {
   //alert(response);
   return response;
 
+}
+
+function validateJobGenParams(engineer, supervisor, truck, rig, well) {
+	if(engineer.strip().length == 0) {
+		displayError("Please provide the name of the Engineer");
+		return false;
+	} else if(supervisor.strip().length == 0) {
+		displayError("Please provide the name of the Supervisor");
+		return false;
+	} else if(truck.strip().length == 0) {
+		displayError("Please provide the number of the Truck");
+		return false;
+	} else if(rig.strip().length == 0) {
+		displayError("Please provide the name of the Rig");
+		return false;
+	} else if(well.strip().length == 0) {
+		displayError("Please provide the name of the Well");
+		return false;
+	}
+	return true;
 }
 
 function removeProduct(unique_id) {
@@ -268,7 +301,6 @@ function validateAndClose() {
 		
 		if(quantity != total) {
 			displayError("Quantitites do not match");
-			break;
 			return false;
 		}
 		submit_val = submit_val + unique_id + "|" + query_str;

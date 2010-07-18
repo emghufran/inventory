@@ -1,5 +1,15 @@
 <div><span id="error" class='error' style="display:none;"></div>
+<div>
+	<label>Engineer:&nbsp;</label><input type="text" name="engineer" id="engineer" value=""/>&nbsp;
+	<label>Supervisor:&nbsp;</label><input type="text" name="supervisor" id="supervisor" value=""/>&nbsp;
+	<label>Truck:&nbsp;</label><input type="text" name="truck" id="truck" value=""/>&nbsp;
+	<div style="clear:both;line-height:5px;">&nbsp;</div>
+	<label>Rig:&nbsp;</label><input type="text" name="rig" id="rig" value=""/>&nbsp;
+	<label>Well:&nbsp;</label><input type="text" name="well" id="well" value=""/>&nbsp;
+</div>
+<div style="clear:both;line-height:5px;">&nbsp;</div>
 <div style="float:left;">
+<input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
 <select name="products" id="products" onchange="updateQuantity(this.value, document.getElementById('bunkers').value, 'available-quantity'); updateProductDescription(this.value, 'product-description');">
 <% @products.each do |p| %>
   <option value="<%=p.id%>" ><%=p.part_number%></option>

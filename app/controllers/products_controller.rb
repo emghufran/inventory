@@ -93,8 +93,6 @@ class ProductsController < ApplicationController
   end
 
   def get_existing_quantity
-  		debugger
-  		
     product_count = get_product_quantity(params[:part_id], params[:bunker_id])
     render :text=> product_count
     #render :text=> (product_count.nil? ? 0 : product_count.quantity)

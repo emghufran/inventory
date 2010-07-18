@@ -1,9 +1,9 @@
 <p>Jobs List</p>
 <table>
-<th><td>ID</td></td><td>Engineer</td><td>Created Date</td><td></td></th>
+<th><td>ID</td></td><td>Engineer</td><td>Status</td><td>Created Date</td><td></td></th>
 <% @jobs.each do |j| %>
 	<tr id="job_"<%=j.id%>>
-		<td><a href='/jobs/<%=j.id%>'><%=j.id%></a></td><td><%=j.engineer%></td><td><%=j.created_at%></td>
+		<td><a href='/jobs/<%=j.id%>'><%=j.id%></a></td><td><%=j.engineer%></td><td><%=j.status%></td><td><%=j.created_at.strftime('%Y-%m-%d %H:%M')%></td>
 				<td><a href="/jobs/close/<%=j.id%>">Close Job</a></td>	
 	</tr>
 <% end %>

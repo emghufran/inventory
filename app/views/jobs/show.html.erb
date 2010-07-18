@@ -2,6 +2,14 @@
 <!-- render details of Job table here.. -->
 <input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
 <input type="hidden" value="<%=@job.id%>" id="job_id"/>
+<table>
+	<tr>
+		<td width="90">Engineer:</td><td width="130"><%=@job.engineer%></td>
+		<td width="90">Supervisor:</td><td width="130"><%=@job.gun_shop_superviser%></td>
+		<td width="90">Truck:</td><td width="90"><%=@job.truck%></td></tr>
+	<tr><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td></tr>
+</table>
+<div style="clear:both;line-height:5px;">&nbsp;</div>
 <div><span id="error" class='error' style="display:none;"></div>
 <table>
 <tr><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Avail. Quantity</th><th></th><th></th></tr>

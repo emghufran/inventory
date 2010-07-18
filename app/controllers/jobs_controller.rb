@@ -16,8 +16,19 @@ class JobsController < ApplicationController
   def create
     products = params[:products].split("||");
     products_list = []
+    debugger
+    engineer = params[:engineer]
+	 supervisor = params[:supervisor]
+    well = params[:well]
+    rig = params[:rig]
+    truck = params[:truck]
+
+    if engineer.strip.length == 0 || supervisor.strip.length == 0 || well.strip.length == 0 || 
+    	rig.strip.length == 0 || truck.strip.length == 0 
+    	render :text => "Please provide valid inputs for Engineer, Supervisor, Truck, Well, and Rig" 
+      return
+    end
     products.each do |p|
-    	debugger
     	 prd = p.split('|');
     	 if prd.length != 3
     	 	render :text => "Invalid Input" 
@@ -36,6 +47,11 @@ class JobsController < ApplicationController
     #Validation Complete. Insert and redirect to success.
     j = Job.new
 	 j.user_id = session[:user_id]
+	 j.engineer = engineer
+	 j.gun_shop_superviser = supervisor
+	 j.well = well	 
+	 j.rig = rig
+	 j.truck = truck
 	 j.status = "Open"
 	 j.save
 	 job_id = j.id
@@ -57,9 +73,8 @@ class JobsController < ApplicationController
     		
     	end
 	 end
-	 #redirect_to "/jobs/view/#{job_id}"
-	 render :text => job_id
-	       
+
+	 render :text => "#{job_id}||#{SITE_URL}/jobs/#{job_id}"
   end
 
   def show
@@ -115,7 +130,6 @@ class JobsController < ApplicationController
 	 update_value = quantity - job_detail.quantity
 		 
 	 ui = UpdateInventory.find(:first, :conditions => ["part_id = ? AND bunker_id = ?", product_id, bunker_id])
-	 debugger
 	 if(!ui or ui.nil?)
 	 	render :text => "Error Finding requested part with this job."
   	 	return
@@ -177,7 +191,6 @@ class JobsController < ApplicationController
 	 products = params[:products].split("||");
     products_list = []
     products.each do |p|
-    	debugger
     	 prd = p.split('|');
     	 if prd.length != 3
     	 	render :text => "Invalid Input" 
