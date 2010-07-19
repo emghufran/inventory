@@ -6,19 +6,21 @@
 	<tr>
 		<td width="90">Engineer:</td><td width="130"><%=@job.engineer%></td>
 		<td width="90">Supervisor:</td><td width="130"><%=@job.gun_shop_superviser%></td>
-		<td width="90">Truck:</td><td width="90"><%=@job.truck%></td></tr>
-	<tr><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td></tr>
+		<td width="150">Truck:</td><td width="90"><%=@job.truck%></td></tr>
+	<tr><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td>
+    <td width="150">Explosive Van:</td><td width="90"><%=%></td>
+  </tr>
 </table>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div><span id="error" class='error' style="display:none;"></div>
 <div>
-<% if @job.attachment_path.strip.length > 0
+<% if @job and @job.attachment_path and @job.attachment_path.strip.length > 0
 	filepath = @job.attachment_path.strip.sub(/^public/, '')
 %>
 <div><a href='<%= "#{SITE_URL}#{filepath}"%>'>Permit for this job</a></div>
 <%	end%>
 <%= form_tag ({:action => 'upload_file', :controller => 'jobs'}, :multipart => true) %>
-<p><label for="upload_file">Select File</label> : 
+<p><label for="upload_file">Transportation NOC</label> : 
 <%= file_field 'upload', 'datafile' %>
 <input type="hidden" value="<%=@job.id%>" name="job_id" id="job_id"/>
 <input type="hidden" value='<%="/jobs/#{@job.id}"%>' name="return_url" id="return_url"/>
