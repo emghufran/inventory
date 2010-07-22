@@ -1,0 +1,21 @@
+The Job you requested has been <%= (@decision == 'approved' ? 'APPROVED' : 'DECLINED') %><br/><br/>
+
+Job details are as follows:<br/><br/>
+
+Engineer: 		<%=@job.engineer%><br/>
+Supervisor: 	<%=@job.gun_shop_superviser%><br/>
+Rig:				<%=@job.rig%><br/>
+Well:				<%=@job.well%><br/><br/>
+
+Following items are requested:<br/>
+
+<%
+count = 1 
+@job_details.each do |jd| %>
+	<%=count%>. <%=jd.part_number%> (<%= (jd.part_desc.length > 20 ? jd.part_desc[0..16] + '...' : jd.part_desc) %>) Quantity: <%=jd.quantity%>. [Bunker: <%=jd.bunker_name%>]
+	<% count += 1 %>
+	<br/>	
+<% end %>
+<br/>
+Click on this <a href="<%=SITE_URL%>/jobs/<%=@job.id%>">link</a> to view the job.
+

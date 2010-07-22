@@ -1,0 +1,19 @@
+<h1>Editing mail_manager</h1>
+
+<% form_for(@mail_manager) do |f| %>
+  <%= f.error_messages %>
+  <p><%= label_tag 'Email:' %>&nbsp;
+  <%= f.text_field :email %></p>
+  <p><%= label_tag 'Group:' %>&nbsp;<select name="mail_manager[role]">
+  		<option value="Account Approval" <%=(@mail_manager.role == 'Account Approval' ? 'selected' : '')%> >Account Approval</option>
+  		<option value="Job Approval" <%=(@mail_manager.role == 'Job Approval' ? 'selected' : '')%> >Job Approval</option>
+  		<option value="Inventory Managers" <%=(@mail_manager.role == 'Inventory Managers' ? 'selected' : '')%> >Inventory Managers</option>
+		</select>  
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @mail_manager %> |
+<%= link_to 'Back', mail_managers_path %>

@@ -1,1 +1,5 @@
-hello hello
+A new user has registered with the following details.<br/>
+Login ID: <%= @user.login %><br/> 
+Name: <%= @user.name %><br/>
+Email: <%= @user.email %><br/><br/>
+Please go to <a href="<%= SITE_URL %>/users/activate/<%=@user.id%>">this link</a> to activate users.

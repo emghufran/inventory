@@ -1,0 +1,14 @@
+A new user has registered with the following details.<br/>
+Login ID: <%= @user.login %><br/> 
+Name: <%= @user.name %><br/>
+Email: <%= @user.email %><br/><br/>
+<form action="/users/activate/<%=@user.id%>" method="post">
+	<input type="hidden" value="<%=form_authenticity_token()%>" name="authenticity_token" id="authenticity_token"/>
+	<input type="radio" name="approval" value="1" checked />Approve
+   <input type="radio" name="approval" value="0" />Disprove&nbsp;&nbsp;
+   <select name="role">   	
+   	<option value="Engineer" selected>Engineer</option>
+   	<option value="Manager" >Manager</option>
+   </select>
+   <input type="submit" value="Submit"/>
+</form>

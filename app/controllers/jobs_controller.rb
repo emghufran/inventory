@@ -6,7 +6,6 @@ class JobsController < ApplicationController
     @bunkers = Bunker.find(:all, :order => 'id ASC')
     product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", @products[0].id, @bunkers[0].id] ) if @bunkers and @products
     @existing_quantity = product_count.quantity unless product_count.nil?
-
   end
  
   def index
@@ -16,7 +15,6 @@ class JobsController < ApplicationController
   def create
     products = params[:products].split("||");
     products_list = []
-    debugger
     engineer = params[:engineer]
 	 supervisor = params[:supervisor]
     well = params[:well]
@@ -52,7 +50,7 @@ class JobsController < ApplicationController
 	 j.well = well	 
 	 j.rig = rig
 	 j.truck = truck
-	 j.status = "Open"
+	 j.status = "Pending Approval"
 	 j.save
 	 job_id = j.id
 	 if(!job_id or job_id.nil?)
@@ -70,8 +68,9 @@ class JobsController < ApplicationController
     		jd.bunker_id = p[1]
     		jd.quantity = p[2]
     		jd.save
-    		
     	end
+    	user = User.find(j.user_id.to_i) || User.first
+    	Emailer.deliver_approve_job_request(j, user)
 	 end
 
 	 render :text => "#{job_id}||#{SITE_URL}/jobs/#{job_id}"
@@ -308,5 +307,28 @@ class JobsController < ApplicationController
     
     redirect_to :controller => 'jobs', :action => 'show', :id => job_id
     #render :text => "done!"
+  end
+  
+  def approve_job
+	 job_id = params[:id]
+  	 @job = Job.find(job_id.to_i)
+  	 if !@job #didnt find user.
+  	 	flash[:error]  = "We couldn't find the requested job."
+  	 	redirect_to :controller => 'main', :action => 'index'
+  	 elsif @job.status == "Approved"
+  	 	flash[:error]  = "This job has already been Approved!"
+  	 	redirect_to :controller => 'jobs', :action => 'show', :id => job_id
+  	 end
+  	 
+  	 approval = params[:approval]
+	 if(approval and approval.length > 0) 
+	 	user = User.find(@job.user_id.to_i) || User.find(:first)
+	 	decision = (approval.to_i == 1 ? "Approved" : "Declined")
+	 	@job.status = decision
+	 	@job.save
+	 	Emailer.deliver_notify_job_confirmation(@job, user, decision.to_lower)
+	 	flash[:notice] = "The job has been #{decision} and the concerning Engineers have been notified."
+	 	redirect_to :controller => 'jobs', :action => 'show', :id => @job.id
+	 end
   end
 end

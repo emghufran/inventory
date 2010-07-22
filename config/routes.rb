@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :mail_managers
+
   map.resources :orders
 
   map.new_job "/jobs/new", :controller => 'jobs', :action => 'new'
@@ -21,8 +23,9 @@ ActionController::Routing::Routes.draw do |map|
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
+  map.activate_user "/users/activate/:id", :controller => 'users', :action => 'activate'
   map.resources :users
-
+  
   map.resource :session
   #map.root :controller => 'main'
   map.home '', :controller => 'main', :action => 'index' 
