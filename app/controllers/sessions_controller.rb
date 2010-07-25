@@ -19,7 +19,8 @@ class SessionsController < ApplicationController
       new_cookie_flag = (params[:remember_me] == "1")
       handle_remember_cookie! new_cookie_flag
       session[:user_name] = user.login
-      session[:role_id] = user.role_id
+      session[:user_id] = user.id
+      session[:role] = user.role
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else

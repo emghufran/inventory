@@ -32,5 +32,107 @@
   <td><%= label_tag @product[:spf] %></td>
   </tr>
 </table>
+<table>
+<tr>
+	<td>CE Certificate</td>
+	<td>
+	<% if @product and @product.ce_certificate and @product.ce_certificate.strip.length > 0
+	  filepath = @product.ce_certificate.strip.sub(/^public/, '')
+	  end
+	%>
+	<% if filepath.length > 0 %>
+	<a href='<%= "#{SITE_URL}#{filepath}"%>'>View</a>
+	<% end%>
+	</td>
+	<td>
+<% form_tag '/products/upload_file', :multipart => true do %>
+<p><%= file_field 'upload', 'datafile' %>
+<input type="hidden" value="<%=@product[:id]%>" name="product_id" id="product_id"/>
+<input type="hidden" value="ce_certificate" name="upload_file_type"/>
+<input type="hidden" value='<%="/products/#{@product[:id]}"%>' name="return_url" id="return_url"/>
+<%= submit_tag "Upload" %>
+<% end %>
+</td></tr>
+<tr><td>Transort Approval Document</td>
+	<td>
+	<% filepath = '' 
+	if @product and @product.transport_approval_document and @product.transport_approval_document.strip.length > 0
+	  filepath = @product.transport_approval_document.strip.sub(/^public/, '')
+	  end
+	%>
+	<% if filepath.length > 0 %>
+	<a href='<%= "#{SITE_URL}#{filepath}"%>'>View</a>
+	<% end%>
+	</td>
+	<td>
+<% form_tag '/products/upload_file', :multipart => true do %>
+<p><%= file_field 'upload', 'datafile' %>
+<input type="hidden" value="<%=@product[:id]%>" name="product_id" id="product_id"/>
+<input type="hidden" value="transport_approval_document" name="upload_file_type"/>
+<input type="hidden" value='<%="/products/#{@product[:id]}"%>' name="return_url" id="return_url"/>
+<%= submit_tag "Upload" %>
+<% end %>
+</td></tr>
+<tr><td>Product Identification Sheet</td>
+<td>
+	<%  filepath = ''
+	 if @product and @product.product_identification_sheet and @product.product_identification_sheet.strip.length > 0
+	  filepath = @product.product_identification_sheet.strip.sub(/^public/, '')
+	  end
+	%>
+	<% if filepath.length > 0 %>
+	<a href='<%= "#{SITE_URL}#{filepath}"%>'>View</a>
+	<% end%>
+</td>
+<td>
+<% form_tag '/products/upload_file', :multipart => true do %>
+<p><%= file_field 'upload', 'datafile' %>
+<input type="hidden" value="<%=@product[:id]%>" name="product_id" id="product_id"/>
+<input type="hidden" value="product_identification_sheet" name="upload_file_type"/>
+<input type="hidden" value='<%="/products/#{@product[:id]}"%>' name="return_url" id="return_url"/>
+<%= submit_tag "Upload" %>
+<% end %>
+</td></tr>
+<tr><td>MSDS</td>
+<td>
+	<%  filepath = ''
+	 if @product and @product.msds and @product.msds.strip.length > 0
+	  filepath = @product.msds.strip.sub(/^public/, '')
+	  end
+	%>
+	<% if filepath.length > 0 %>
+	<a href='<%= "#{SITE_URL}#{filepath}"%>'>View</a>
+	<% end%>
+</td><td>
+<% form_tag '/products/upload_file', :multipart => true do %>
+<p><%= file_field 'upload', 'datafile' %>
+<input type="hidden" value="<%=@product[:id]%>" name="product_id" id="product_id"/>
+<input type="hidden" value="msds" name="upload_file_type"/>
+<input type="hidden" value='<%="/products/#{@product[:id]}"%>' name="return_url" id="return_url"/>
+<%= submit_tag "Upload" %>
+<% end %>
+</td></tr>
+<tr><td>Declaration of Conformity</td>
+<td>
+	<%  filepath = '' 
+	  if @product and @product.declaration_of_conformity and @product.declaration_of_conformity.strip.length > 0
+	  filepath = @product.declaration_of_conformity.strip.sub(/^public/, '')
+	  end
+	%>
+	<% if filepath.length > 0 %>
+	<a href='<%= "#{SITE_URL}#{filepath}"%>'>View</a>
+	<% end%>
+</td>
+<td>
+<% form_tag '/products/upload_file', :multipart => true do %>
+<p><%= file_field 'upload', 'datafile' %>
+<input type="hidden" value="<%=@product[:id]%>" name="product_id" id="product_id"/>
+<input type="hidden" value="declaration_of_conformity" name="upload_file_type"/>
+<input type="hidden" value='<%="/products/#{@product[:id]}"%>' name="return_url" id="return_url"/>
+<%= submit_tag "Upload" %>
+<% end %>
+</td></tr>
+</table>
+
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

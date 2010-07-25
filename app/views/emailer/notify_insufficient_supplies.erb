@@ -1,3 +1,3 @@
-<%=@user.name%> (<%=@user.login%>) requested <%=@quantity%> amount of <%=@product.part_name%> (<%=(@product.description.length > 20 ? @product.description[0..16] + '...' : @product.description)%>) from bunker <%=@bunker.name%>.
+<%=@user.name%> (<%=@user.login%>) requested <%=@quantity%> units of <%=@product.part_number%> (<%=(@product.description.length > 20 ? @product.description[0..16] + '...' : @product.description)%>) from bunker <%=@bunker.name%>.
 <br/><br/>
 Available quantity for this part in the bunker is <%=@inventory.quantity%>.

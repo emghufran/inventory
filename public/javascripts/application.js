@@ -44,6 +44,7 @@ function addProductToList() {
 
   if (available_quantity < parseInt(quantity)) {
     $('error').replace("<span class='error' id='error'>Requested Quantity is more than available quantity!</span>");
+    $('inventory-link').show();
     return;
   }
   if (quantity.strip() == '') {
@@ -85,12 +86,13 @@ function createJob() {
   truck = $('truck').value;
   rig = $('rig').value;
   well = $('well').value;
-  validation = validateJobGenParams(engineer, supervisor, truck, rig, well);
+  explosive_van = $('explosive_van').value;
+  validation = validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van);
   if(validation == false) {
     return false;  
   }
   submit_value = "products=" + submit_value + "&authenticity_token="+ $('authenticity_token').value;
-  submit_value = submit_value + "&engineer=" + engineer + "&supervisor=" + supervisor + "&truck=" + truck + "&rig=" + rig + "&well=" + well;
+  submit_value = submit_value + "&engineer=" + engineer + "&supervisor=" + supervisor + "&truck=" + truck + "&rig=" + rig + "&well=" + well + "&explosive_van=" + explosive_van;
   //alert(submit_value);return;
   new Ajax.Request('/jobs/create', {
     method: 'post',
@@ -123,7 +125,7 @@ function createJob() {
 
 }
 
-function validateJobGenParams(engineer, supervisor, truck, rig, well) {
+function validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van) {
 	if(engineer.strip().length == 0) {
 		displayError("Please provide the name of the Engineer");
 		return false;
@@ -138,6 +140,9 @@ function validateJobGenParams(engineer, supervisor, truck, rig, well) {
 		return false;
 	} else if(well.strip().length == 0) {
 		displayError("Please provide the name of the Well");
+		return false;
+	} else if(explosive_van.strip().length == 0) {
+		displayError("Please provide the Explosive Van details");
 		return false;
 	}
 	return true;
@@ -326,3 +331,51 @@ function validateAndClose() {
   });
   return;
 }
+
+function notifyLowInventory() {
+  var product_id = $('products').value;
+  var bunker_id = $('bunkers').value;
+  var quantity = $('quantity').value;
+   
+  submit_val = "product_id=" + product_id + "&bunker_id=" + bunker_id + "&quantity=" + quantity;
+  new Ajax.Request('/jobs/notify_low_inventory', {
+    method: 'get',
+    asynchronous: false,
+    parameters: submit_val,
+    onSuccess: function(transport){
+    	displayError("Inventory Managers have been notified.");
+      //response = transport.responseText || "no response text";
+    },
+    onFailure: function(){ alert('Something went wrong...') }
+  });
+  return;	
+}
+
+function movementOptionControl()
+{
+	var option_type = $('movement_type').value;
+	if(option_type=="FMT")
+	{
+		$('bunkers').disabled = false;//from
+		$('bunkers_to').disabled = false;	//to
+		$('overseas_location').disabled = true;
+	}
+	else if(option_type=="TCP")
+	{
+		$('bunkers').disabled = false;//from
+		$('bunkers_to').disabled = true;	//to
+		$('overseas_location').disabled = true;	
+	}
+	else if(option_type=="WIRELINE")
+	{
+		$('bunkers').disabled = true;//from
+		$('bunkers_to').disabled = false;	//to
+		$('overseas_location').disabled = true;	
+	}
+	else if(option_type == "OVERSEAS")
+	{
+		$('bunkers').disabled = false;//from
+		$('bunkers_to').disabled = true;	//to
+		$('overseas_location').disabled = false;	
+	}
+} 

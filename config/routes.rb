@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+  map.report_explosives_quantities "/reports/explosives_quantities", :controller => "reports", :action => "explosives_quantities"
+  map.movement_index "/movement", :controller => "movement", :action => "index" 
+  map.movement_create "/movement/create", :controller => "movement", :action => "create" 
   map.resources :mail_managers
 
   map.resources :orders
@@ -10,7 +13,8 @@ ActionController::Routing::Routes.draw do |map|
   map.add_products "/jobs/add_products", :controller => 'jobs', :action => 'add_products'
   map.view_job "/jobs/:id", :controller => 'jobs', :action => 'show', :requirements => { :id => /\d+/}
   map.close_job "/jobs/close/:id", :controller => 'jobs', :action => 'close', :requirements => { :id => /\d+/}
-  map.close_job_action "/jobs/close_job", :controller => 'jobs', :action => 'close_job', :requirements => { :id => /\d+/}  
+  map.close_job_action "/jobs/close_job", :controller => 'jobs', :action => 'close_job', :requirements => { :id => /\d+/} 
+  map.notify_low_inventory "/jobs/notify_low_inventory", :controller => 'jobs', :action => 'notify_low_inventory' 
   
   map.receive "/orders/receive", :controller => 'orders', :action => 'receive'
   map.get_existing_quantity "/products/get_existing_quantity", :controller => 'products', :action => 'get_existing_quantity'

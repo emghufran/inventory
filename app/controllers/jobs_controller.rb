@@ -20,10 +20,11 @@ class JobsController < ApplicationController
     well = params[:well]
     rig = params[:rig]
     truck = params[:truck]
+    explosive_van = params[:explosive_van]
 
     if engineer.strip.length == 0 || supervisor.strip.length == 0 || well.strip.length == 0 || 
-    	rig.strip.length == 0 || truck.strip.length == 0 
-    	render :text => "Please provide valid inputs for Engineer, Supervisor, Truck, Well, and Rig" 
+    	rig.strip.length == 0 || truck.strip.length == 0 || explosive_van.strip.length == 0 
+    	render :text => "Please provide valid inputs for Engineer, Supervisor, Truck, Well, Rig and Explosive Van" 
       return
     end
     products.each do |p|
@@ -50,6 +51,7 @@ class JobsController < ApplicationController
 	 j.well = well	 
 	 j.rig = rig
 	 j.truck = truck
+	 j.explosive_van = explosive_van
 	 j.status = "Pending Approval"
 	 j.save
 	 job_id = j.id
@@ -69,6 +71,7 @@ class JobsController < ApplicationController
     		jd.quantity = p[2]
     		jd.save
     	end
+    	debugger
     	user = User.find(j.user_id.to_i) || User.first
     	Emailer.deliver_approve_job_request(j, user)
 	 end
@@ -330,5 +333,20 @@ class JobsController < ApplicationController
 	 	flash[:notice] = "The job has been #{decision} and the concerning Engineers have been notified."
 	 	redirect_to :controller => 'jobs', :action => 'show', :id => @job.id
 	 end
+  end
+  
+  def notify_low_inventory
+	 product_id = params[:product_id]
+	 bunker_id = params[:bunker_id]
+	 quantity = params[:quantity]
+	 debugger
+	 if(session[:user_id])
+	 	user = User.find(session[:user_id])
+	 else
+	 	user = User.find(:first)
+	 end
+	 Emailer.deliver_notify_insufficient_supplies(user, product_id, bunker_id, quantity)
+	 
+	 render :text => "SUCCESS"
   end
 end

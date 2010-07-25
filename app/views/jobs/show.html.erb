@@ -17,7 +17,7 @@
 <% if @job and @job.attachment_path and @job.attachment_path.strip.length > 0
 	filepath = @job.attachment_path.strip.sub(/^public/, '')
 %>
-<div><a href='<%= "#{SITE_URL}#{filepath}"%>'>Permit for this job</a></div>
+<div><a href='<%= "#{SITE_URL}#{filepath}"%>'>View Transportation NOC</a></div>
 <%	end%>
 <%= form_tag ({:action => 'upload_file', :controller => 'jobs'}, :multipart => true) %>
 <p><label for="upload_file">Transportation NOC</label> : 

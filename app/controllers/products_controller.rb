@@ -114,4 +114,23 @@ class ProductsController < ApplicationController
         flash[:notice] = 'Inventory cannot be updated at this time.'
     end
   end
+  
+  def upload_file
+    product_id = params[:product_id]
+    file_type = params[:upload_file_type]
+    redirect_url = params[:return_url]
+    debugger
+    file_type_arr = ['ce_certificate', 'transport_approval_document', 'product_identification_sheet', 'msds', 'declaration_of_conformity']
+    unless file_type_arr.include?(file_type.downcase)
+    	#error
+    end
+    
+    post = DataFile.save(params[:upload], "#{product_id}" + file_type)
+    product = Product.find(product_id.to_i)
+    product[file_type] = post
+    product.save
+    
+    redirect_to :controller => 'products', :action => 'show', :id => product_id
+    #render :text => "done!"
+  end
 end

@@ -1,6 +1,9 @@
 class Emailer < ActionMailer::Base
   def send_activation_request(user)
-  		recievers = ['Ghufran <emghufran@gmail.com>', 'Ghufran <mghfrn@gmail.com>']
+  		#recievers = ['Ghufran <emghufran@gmail.com>', 'Ghufran <mghfrn@gmail.com>']
+		recievers = MailManagers.find(:all, :conditions => ["role = 'Account Approval'"])
+		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
+		bcc 				'explosive.inventory@gmail.com'	
   		subject     	"New User registration request"
       recipients  	recievers
       from        	'explosive.inventory@gmail.com'
@@ -10,9 +13,11 @@ class Emailer < ActionMailer::Base
    end  
 
 	def account_activation_confirmation(user)
-		recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		recievers = user.email
+		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
       subject     "Registration Confirmed"
       recipients  recievers
+      bcc 			'explosive.inventory@gmail.com'
       from        'explosive.inventory@gmail.com'
       sent_on     Time.now
       body			:user => user
@@ -20,7 +25,9 @@ class Emailer < ActionMailer::Base
 	end
 
 	def approve_job_request(job, user)
-		recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		#recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		recievers = MailManagers.find(:all, :conditions => ["role = 'Job Approval'"])
+		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
 		job_details = JobDetail.find(:all, :conditions => ["job_id = ? ", job.id],
   	 						:joins => " INNER JOIN products p ON job_details.part_id = p.id 
   	 										INNER JOIN bunkers b ON job_details.bunker_id = b.id 
@@ -29,6 +36,7 @@ class Emailer < ActionMailer::Base
   	 						
 		subject     "New Job Request"
       recipients  recievers
+      bcc 			'explosive.inventory@gmail.com'
       from        'explosive.inventory@gmail.com'
       sent_on     Time.now
       body			:user => user, :job => job, :job_details => job_details
@@ -36,7 +44,9 @@ class Emailer < ActionMailer::Base
 	end
 	
 	def notify_job_confirmation(job, user, decision = 'approved')
-		recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		#recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		recievers = user.email
+		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
 		job_details = JobDetail.find(:all, :conditions => ["job_id = ? ", job.id],
   	 						:joins => " INNER JOIN products p ON job_details.part_id = p.id 
   	 										INNER JOIN bunkers b ON job_details.bunker_id = b.id 
@@ -46,6 +56,7 @@ class Emailer < ActionMailer::Base
   	 						
 		subject     sub
       recipients  recievers
+      bcc 			'explosive.inventory@gmail.com'
       from        'explosive.inventory@gmail.com'
       sent_on     Time.now
       body			:user => user, :job => job, :job_details => job_details, :decision => decision
@@ -53,13 +64,16 @@ class Emailer < ActionMailer::Base
 	end
 	
 	def notify_insufficient_supplies(user, product_id, bunker_id, quantity)
-		recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		#recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
+		recievers = MailManagers.find(:all, :conditions => ["role = 'Inventory Managers'"])
+		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
 		product = Product.find(:first, :conditions => ["id = ? ", product_id])
 		bunker = Bunker.find(:first, :conditions => ["id = ? ", bunker_id])
 		inventory = UpdateInventory.find(:first, :conditions => ["part_id = ? and bunker_id = ? ", product_id, bunker_id])
 		  	 						
 		subject     "Insufficient supplies in Inventory"
       recipients  recievers
+      bcc 			'explosive.inventory@gmail.com'
       from        'explosive.inventory@gmail.com'
       sent_on     Time.now
       body			:user => user, :product => product, :bunker => bunker, :quantity => quantity, :inventory => inventory

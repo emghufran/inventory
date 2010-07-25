@@ -1,0 +1,8 @@
+<div>EXPLOSIVE LOAD CALCULATED FOR <%=Time.now.strftime('%d/%m/%Y %H:%M:%S')%></div>
+<table>
+<% @results.each do |r| %>
+<tr>
+	<td><%=r[0]%></td><td><%=r[1]%>&nbsp;Kg</td>
+</tr>
+<% end %>
+</table>
