@@ -72,8 +72,9 @@ class JobsController < ApplicationController
     		jd.save
     	end
     	debugger
-    	user = User.first
-    	#Emailer.deliver_approve_job_request(j, user)
+    	user = User.find(j.user_id.to_i) if j.user_id 
+    	user = User.first if !user
+    	Emailer.deliver_approve_job_request(j, user)
 	 end
 
 	 render :text => "#{job_id}||#{SITE_URL}/jobs/#{job_id}"
@@ -253,9 +254,9 @@ class JobsController < ApplicationController
   
   def close_job
     job_id = params[:job_id]
-  	@job = Job.find(job_id)
-   debugger
-  	products = params[:products]
+  	 @job = Job.find(job_id)
+    debugger
+  	 products = params[:products]
     products = products.split("||")
     part_hash = {}
     products.each do |p|
@@ -293,6 +294,14 @@ class JobsController < ApplicationController
       j.sign_in = val[2]
       j.save
 
+		if(val[2].to_i > 0)
+			ui = UpdateInventory.find(:first, :conditions =>["part_id = ?, bunker_id = ? ", part_params[1], part_params[2]])
+			if !ui
+				ui = UpdateInventory.create(:part_id => part_params[1], :bunker_id => part_params[2], :quantity => val[2])
+			end 
+			ui.quantity = ui.quantity.to_i + val[2].to_i
+			ui.save
+		end
     end
     @job.status = "Closed"
     @job.save
@@ -315,6 +324,12 @@ class JobsController < ApplicationController
   def approve_job
 	 job_id = params[:id]
   	 @job = Job.find(job_id.to_i)
+  	 @job_details = JobDetail.find(:all, :conditions => ["job_id = ? ", @job.id],
+  	 						:joins => " INNER JOIN products p ON job_details.part_id = p.id 
+  	 										INNER JOIN bunkers b ON job_details.bunker_id = b.id 
+  	 										INNER JOIN update_inventories ui ON job_details.part_id = ui.part_id AND job_details.bunker_id = ui.bunker_id ", 
+  	 						:select => "job_details.*, p.part_number, p.description AS part_desc, b.name AS bunker_name, ui.quantity AS available_quantity" )
+  	 
   	 if !@job #didnt find user.
   	 	flash[:notice]  = "We couldn't find the requested job."
   	 	redirect_to :controller => 'main', :action => 'index'
@@ -325,11 +340,12 @@ class JobsController < ApplicationController
   	 
   	 approval = params[:approval]
 	 if(approval and approval.length > 0) 
-	 	user = User.find(@job.user_id.to_i) || User.find(:first)
+	 	user = User.find(@job.user_id.to_i) if @job.user_id.to_i > 0 
+	 	user = User.find(:first) if !user
 	 	decision = (approval.to_i == 1 ? "Approved" : "Declined")
 	 	@job.status = decision
 	 	@job.save
-	 	Emailer.deliver_notify_job_confirmation(@job, user, decision.to_lower)
+	 	Emailer.deliver_notify_job_confirmation(@job, user, decision.downcase)
 	 	flash[:notice] = "The job has been #{decision} and the concerning Engineers have been notified."
 	 	redirect_to :controller => 'jobs', :action => 'show', :id => @job.id
 	 end

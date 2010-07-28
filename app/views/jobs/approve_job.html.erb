@@ -1,0 +1,44 @@
+<div class="heading-text">Approve Job</div>
+	<table>
+	<tr class="large-text">
+		<td width="90">Engineer:</td><td width="130"><%=@job.engineer%></td>
+		<td width="90">Supervisor:</td><td width="130"><%=@job.gun_shop_superviser%></td>
+		<td width="150">Truck:</td><td width="90"><%=@job.truck%></td></tr>
+	<tr class="large-text"><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td>
+    <td width="150">Explosive Van:</td><td width="90"><%=@job.explosive_van%></td>
+  	</tr>
+	</table>
+	<div style="clear:both;line-height:5px;">&nbsp;</div>
+	<div><span id="error" class='error' style="display:none;"></div>
+	<div class="large-text">
+	<% if @job and @job.attachment_path and @job.attachment_path.strip.length > 0
+		filepath = @job.attachment_path.strip.sub(/^public/, '')
+	%>
+	<div class="large-text"><a href='<%= "#{SITE_URL}#{filepath}"%>'>View Transportation NOC</a></div>
+	<%	end%>
+<table>
+<tr class="large-text"><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th></tr>
+<% if(@job_details.length == 0) %>
+<span class="alert">There are currently no parts assosiated with this job.</span>
+<% end %>
+<% count = 1 %>
+<% @job_details.each do |j| %>
+	<tr class="normal-text">
+		<%part_bunker = "p#{j.part_id}b#{j.bunker_id}j#{j.job_id}"%>
+		<td><%=count%></td>
+		<td><%= resize_string(j.part_desc, 40) %></td>
+		<td><%=j.bunker_name%></td>
+		<td id="<%='curr_'+part_bunker%>"><%=j.quantity%></td>
+	</tr>
+	<% count += 1 %>
+<% end %>
+</table>
+
+<form action="/jobs/approve_job/<%=@job.id%>" method="post">
+	<input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token" name="authenticity_token"/>
+	<input type="hidden" value="<%=@job.id%>" id="job_id" name="job_id"/>
+	<label>Decision:&nbsp;&nbsp;</label>
+	<input type="radio" name="approval" value="1" checked />Approve
+   <input type="radio" name="approval" value="0" />Disprove&nbsp;&nbsp;
+   <input type="submit" value="Submit"/>
+</form>
