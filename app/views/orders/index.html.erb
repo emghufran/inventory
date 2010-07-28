@@ -1,20 +1,18 @@
-<h1>Listing orders</h1>
-
- <table border="1" cellpadding="3" >
-  <tr>
+<div class="heading-text">Listing orders</div>
+ <table cellpadding="3" >
+  <tr class="large-text">
   <td><%= label_tag 'Part Number'%></td>
   <td><%= label_tag 'Description' %></td>
   <td><%= label_tag 'Order No' %></td>
   <td><%= label_tag 'Order Quantity' %></td>
   <td><%= label_tag 'Order Status' %></td>
   <td></td>
-    <td></td>
-    <td></td>
-  
+  <td></td>
+  <td></td>
   </tr>
 
 <% for order in @orders %>
-  <tr>
+  <tr class="normal-text">
   <td><%= label_tag order[:part_number]%></td>
   <td><%= label_tag order[:description] %></td>
   <td><%= label_tag order[:order_number] %></td>
@@ -27,7 +25,7 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
+<div class="vseparate">&nbsp;</div>
+<div class="large-text">
 <%= link_to 'New order', new_order_path %>
+</div>

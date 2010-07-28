@@ -1,11 +1,9 @@
-<h1>Log In</h1>
-
+<div class="heading-text">Sign In</div>
 <% form_tag session_path do -%>
-<p><%= label_tag 'login' %><br />
-<%= text_field_tag 'login', @login %></p>
-
-<p><%= label_tag 'password' %><br/>
-<%= password_field_tag 'password', nil %></p>
+<div class="large-text floatleft140"><%= label_tag 'Login Name:' %></div>
+<div><%= text_field_tag 'login', @login %></div>
+<div class="large-text floatleft140"><%= label_tag 'Password:' %></div>
+<div><%= password_field_tag 'password', nil %></div>
 
 <!-- Uncomment this if you want this functionality
 <p><%= label_tag 'remember_me', 'Remember me' %>

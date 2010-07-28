@@ -169,3 +169,13 @@ td {
 	border:1px solid black;
 	/*border-collapse:collapse;*/ 
 }
+
+.floatleft140 {
+	float:left;
+	width:140px;
+}
+
+.vseparate {
+	clear:both;
+	line-height:5px;
+}

@@ -1,38 +1,38 @@
-<h1>New Part</h1>
-
+<div class="heading-text">New Part</div>
 <% form_for:product, @product, :url => { :action => 'create' }  do |f| %>
   <%= f.error_messages %>
-  <p><%= label_tag 'Part Number' %>&nbsp;
-  <%= f.text_field :part_number %></p>
-  <p><%= label_tag 'Description' %>&nbsp;
-  <%= f.text_field :description %></p>
-  <p><%= label_tag 'Lawson price' %>&nbsp;
-  <%= f.text_field :lawson_price %></p>
-  <p><%= label_tag 'Box Size' %>&nbsp;
-  <%= f.text_field :box_size %></p>
-  <p><%= label_tag 'UN Number' %>&nbsp;
-  <%= f.text_field :un_num %></p>
-  <p><%= label_tag 'Class' %>&nbsp;
-  <%= f.text_field :class_name %></p>
-  <p><%= label_tag 'Package Quantity' %>&nbsp;
-  <%= f.text_field :package_quantity %></p>
-  <p><%= label_tag 'Package Type' %>&nbsp;
-  <%= f.text_field :package_type %></p>
-  <p><%= label_tag 'Gross Weigh' %>&nbsp;
-  <%= f.text_field :gross_weight %></p>
-  <p><%= label_tag 'Net Weight' %>&nbsp;
-  <%= f.text_field :net_weight %></p>
-  <p><%= label_tag 'GM per Box' %>&nbsp;
-  <%= f.text_field :gm_box %></p>
-  <p><%= label_tag 'GM per Unit' %>&nbsp;
-  <%= f.text_field :gm_unit %></p>
-  <p><%= label_tag 'UM' %>&nbsp;
-  <%= f.text_field :um %></p>
-  <p><%= label_tag 'SPF' %>&nbsp;
-  <%= f.text_field :spf %></p>
+  <div class="large-text floatleft140"><%= label_tag 'Part Number' %></div>
+  <div><%= f.text_field :part_number %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Description' %></div>
+  <div><%= f.text_field :description %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Lawson price' %></div>
+  <div><%= f.text_field :lawson_price %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Box Size' %></div>
+  <div><%= f.text_field :box_size %></div>
+  <div class="large-text floatleft140"><%= label_tag 'UN Number' %></div>
+  <div><%= f.text_field :un_num %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Class' %></div>
+  <div><%= f.text_field :class_name %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Package Quantity' %></div>
+  <div><%= f.text_field :package_quantity %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Package Type' %></div>
+  <div><%= f.text_field :package_type %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Gross Weigh' %></div>
+  <div><%= f.text_field :gross_weight %></div>
+  <div class="large-text floatleft140"><%= label_tag 'Net Weight' %></div>
+  <div><%= f.text_field :net_weight %></div>
+  <div class="large-text floatleft140"><%= label_tag 'GM per Box' %></div>
+  <div><%= f.text_field :gm_box %></div>
+  <div class="large-text floatleft140"><%= label_tag 'GM per Unit' %></div>
+  <div><%= f.text_field :gm_unit %></div>
+  <div class="large-text floatleft140"><%= label_tag 'UM' %></div>
+  <div><%= f.text_field :um %></div>
+  <div class="large-text floatleft140"><%= label_tag 'SPF' %></div>
+  <div><%= f.text_field :spf %></div>
   <p>
     <%= f.submit "Create" %>
   </p>
 <% end %>
-
+<div class="large-text">
 <%= link_to 'Back', products_path %>
+</div>

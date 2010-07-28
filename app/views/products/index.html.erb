@@ -1,7 +1,6 @@
-<h1>Listing Parts</h1>
-
-<table border="1" cellpadding="3" >
-  <tr>
+<div class="heading-text">Listing Parts</div>
+<table cellpadding="3" >
+  <tr class="large-text">
   <td><%= label_tag 'Part Number'%></td>
   <td><%= label_tag 'Description' %></td>
   <td><%= label_tag 'Lawson price' %></td>
@@ -23,8 +22,7 @@
   </tr>
 
 <% for product in @products %>
-
-  <tr>
+  <tr class="normal-text">
   <td><%= label_tag product[:part_number]%></td>
   <td><%= label_tag product[:description] %></td>
   <td><%= label_tag product[:lawson_price] %></td>
@@ -45,7 +43,7 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-
+<div class="vseparate">&nbsp;</div>
+<div class="large-text">
 <%= link_to 'Add new part', new_product_path %>
+</div>

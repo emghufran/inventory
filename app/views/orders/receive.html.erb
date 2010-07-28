@@ -1,32 +1,31 @@
-<h1>Receive order</h1>
+<div class="heading-text">Receive order</div>
 
 <% form_for(@order) do |f| %>
   <%= f.error_messages %>
 
-<p><%= label_tag 'Part Number' %>&nbsp;
-  <%= f.text_field :part_number,:readonly=>"true" %></p>
-  <p><%= label_tag 'Description' %>&nbsp;
-  <%= f.text_field :description,:readonly=>"true" %></p>
-  <p><%= label_tag 'Order Quantity' %>&nbsp;
-  <%= f.text_field :original_quantity ,:readonly=>"true"%></p>
-  <p><%= label_tag 'Received Quantity' %>&nbsp;
-  <%= f.text_field :received_quantity,:onchange=>"changeOrderQuantity()" %></p>
-  <p><%= label_tag 'Remaining Quantity' %>&nbsp;
-    <label id="remaining_quantity"></label>
-  </p>
-<p><%= label_tag 'Bunker' %>&nbsp;
-        <select id="bunker" name="order[bunker_id]" onchange="updateInventoryStats()">
-        <% @bunkers.each do |p| %>
+<div class="large-text" style="width:140px;float:left;"><%= label_tag 'Part Number' %></div>
+  <div><%= f.text_field :part_number,:readonly=>"true" %></div>
+  <div class="large-text" style="width:140px;float:left;"><%= label_tag 'Description' %>&nbsp;</div>
+  <div><%= f.text_field :description,:readonly=>"true" %></div>
+  <div class="large-text" style="width:140px;float:left;"><%= label_tag 'Order Quantity' %>&nbsp;</div>
+  <div><%= f.text_field :original_quantity ,:readonly=>"true"%></div>
+  <div class="large-text" style="width:140px;float:left;"><%= label_tag 'Received Quantity' %>&nbsp;</div>
+  <div><%= f.text_field :received_quantity,:onchange=>"changeOrderQuantity()" %></div>
+  <div class="large-text" style="width:140px;float:left;"><%= label_tag 'Remaining Quantity' %>&nbsp;</div>
+  <div><label id="remaining_quantity">&nbsp;</label></div>
+  <div class="large-text" style="width:140px;float:left;"><%= label_tag 'Bunker' %></div>
+  <div><select id="bunker" name="order[bunker_id]" onchange="updateInventoryStats()">
+      <% @bunkers.each do |p| %>
         <option value="<%=p.id%>" ><%=p.name%></option>
-        <%end%>
-      </select>
-</p>
-  <p><%= label_tag 'Order Status=' %>&nbsp;
-  <%= f.text_field :status ,:readonly=>"true"%></p>
-
+      <%end%>
+    </select>
+  </div>
+  <div class="large-text" style="width:140px;float:left;"><%= label_tag 'Order Status' %></div>
+  <div><%= f.text_field :status ,:readonly=>"true"%></div>
 <p>
-    <%= f.submit "Update" %>
-  </p>
+  <%= f.submit "Update" %>
+</p>
 <% end %>
-
+<div class="large-text">
 <%= link_to 'Back', orders_path %>
+</div>

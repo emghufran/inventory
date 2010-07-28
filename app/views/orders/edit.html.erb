@@ -1,22 +1,21 @@
-<h1>Editing order</h1>
-
+<div class="heading-text">Editing order</div>
 <% form_for(@order) do |f| %>
   <%= f.error_messages %>
-
-<p><%= label_tag 'Part Number' %>&nbsp;
-  <%= f.text_field :part_number,:disabled=>"true" %></p>
-  <p><%= label_tag 'Description' %>&nbsp;
-  <%= f.text_field :description,:disabled=>"true" %></p>
-<p><%= label_tag 'Order No' %>&nbsp;
-  <%= f.text_field :order_number ,:disabled=>"true"%></p>
-  <p><%= label_tag 'Order Quantity' %>&nbsp;
-  <%= f.text_field :original_quantity ,:disabled=>"true"%></p>
-  <p><%= label_tag 'Order Status=' %>&nbsp;
-  <%= f.text_field :status %></p>
-
-<p>
-    <%= f.submit "Update" %>
-  </p>
+<div class="large-text floatleft140"><%= label_tag 'Part Number' %></div>
+<div><%= f.text_field :part_number,:disabled=>"true" %></div>
+<div class="large-text floatleft140"><%= label_tag 'Description' %></div>
+<div><%= f.text_field :description,:disabled=>"true" %></div>
+<div class="large-text floatleft140"><%= label_tag 'Order No' %></div>
+<div><%= f.text_field :order_number ,:disabled=>"true"%></div>
+<div class="large-text floatleft140"><%= label_tag 'Order Quantity' %></div>
+<div><%= f.text_field :original_quantity ,:disabled=>"true"%></div>
+<div class="large-text floatleft140"><%= label_tag 'Order Status' %></div>
+<div><%= f.text_field :status %></div>
+<div>
+  <%= f.submit "Update" %>
+</div>
 <% end %>
-
+<div class="vseparate">&nbsp;</div>
+<div class="large-text">
 <%= link_to 'Back', orders_path %>
+</div>

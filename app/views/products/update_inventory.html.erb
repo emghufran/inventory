@@ -1,7 +1,9 @@
+<div class="heading-text">Update Inventory</div>
+<div class="vseparate">&nbsp;</div>  
   <form action="/products/update_inventory_submit" method="post">
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
   <table>
-    <tr>
+    <tr class="large-text">
       <td> Part No:</td>
       <td>
         <select id="part_number" name="update_inventory[part_number]" onchange="updateInventoryStats()">
@@ -11,7 +13,7 @@
       </select>
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> Description:</td>
       <td>
         <select id="description" disabled="true" name="update_inventory[description]">
@@ -21,7 +23,7 @@
       </select>
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> Bunker:</td>
       <td>
         <select id="bunker" name="update_inventory[bunker]" onchange="updateInventoryStats()">
@@ -31,32 +33,32 @@
       </select>
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> Existing Quantity:</td>
       <td>
         <%debugger%>
         <label id="exisitng_quantity" ><%=@existing_quantity%></label>
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> New Quantity:</td>
       <td>
         <input type="text" id="new_quantity" name="update_inventory[new_quantity]" onchange="changeQuantity()" />
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> Change:</td>
       <td>
         <label id="changed_quantity" ></label>
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> Justification:</td>
       <td>
         <input type="text" id="justification" name="update_inventory[justification]" />
     </td>
     </tr>
-    <tr>
+    <tr class="large-text">
       <td> </td>
       <td>
         <p>

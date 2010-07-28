@@ -1,5 +1,6 @@
-<table border="1" cellpadding="3" >
-  <tr>
+<div class="heading-text">Part Details</div>
+<table cellpadding="3" >
+  <tr class="large-text">
   <td><%= label_tag 'Part Number'%></td>
   <td><%= label_tag 'Description' %></td>
   <td><%= label_tag 'Lawson price' %></td>
@@ -15,7 +16,7 @@
   <td><%= label_tag 'UM' %></td>
   <td><%= label_tag 'SPF' %></td>
   </tr>
-<tr>
+<tr class="normal-text">
   <td><%= label_tag @product[:part_number]%></td>
   <td><%= label_tag @product[:description] %></td>
   <td><%= label_tag @product[:lawson_price] %></td>
@@ -33,7 +34,7 @@
   </tr>
 </table>
 <table>
-<tr>
+<tr class="large-text">
 	<td>CE Certificate</td>
 	<td>
 	<% if @product and @product.ce_certificate and @product.ce_certificate.strip.length > 0
@@ -53,7 +54,7 @@
 <%= submit_tag "Upload" %>
 <% end %>
 </td></tr>
-<tr><td>Transort Approval Document</td>
+<tr class="large-text"><td>Transort Approval Document</td>
 	<td>
 	<% filepath = '' 
 	if @product and @product.transport_approval_document and @product.transport_approval_document.strip.length > 0
@@ -73,7 +74,7 @@
 <%= submit_tag "Upload" %>
 <% end %>
 </td></tr>
-<tr><td>Product Identification Sheet</td>
+<tr class="large-text"><td>Product Identification Sheet</td>
 <td>
 	<%  filepath = ''
 	 if @product and @product.product_identification_sheet and @product.product_identification_sheet.strip.length > 0
@@ -93,7 +94,7 @@
 <%= submit_tag "Upload" %>
 <% end %>
 </td></tr>
-<tr><td>MSDS</td>
+<tr class="large-text"><td>MSDS</td>
 <td>
 	<%  filepath = ''
 	 if @product and @product.msds and @product.msds.strip.length > 0
@@ -112,7 +113,7 @@
 <%= submit_tag "Upload" %>
 <% end %>
 </td></tr>
-<tr><td>Declaration of Conformity</td>
+<tr class="large-text"><td>Declaration of Conformity</td>
 <td>
 	<%  filepath = '' 
 	  if @product and @product.declaration_of_conformity and @product.declaration_of_conformity.strip.length > 0
@@ -133,6 +134,7 @@
 <% end %>
 </td></tr>
 </table>
-
+<div class="large-text">
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+</div>
