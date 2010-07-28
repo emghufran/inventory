@@ -1,8 +1,8 @@
-<h1>Movement</h1>
+<div class='heading-text'>Movements</div>
 <div><span id="error" class='error' style="display:<%= (flash[:notice] && flash[:notice].length > 0 ? 'block' : 'none')%>;"><%=flash[:notice] if flash[:notice] && flash[:notice].length > 0 %></div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <form action="/movement/create" method="post">
-<div style="float:left;">Product:&nbsp;&nbsp;</div>
+<div style="float:left;width:150px;" class='large-text'>Product:&nbsp;&nbsp;</div>
 <div style="float:left;">
 <input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token" name="authenticity_token"/>
 <select name="products" id="products" onchange="updateQuantity(this.value, document.getElementById('bunkers').value, 'available-quantity'); updateProductDescription(this.value, 'product-description');">
@@ -11,11 +11,10 @@
 <%end%>
 </select>&nbsp;&nbsp;
 </div>
-<div id="product-description" style="float:left;width:350px;"><%= (@products[0].description.length > 30 ? @products[0].description[0..29] + '...' : @products[0].description)%></div>
+<div class='large-text' id="product-description" style="float:left;width:350px;"><%= (@products[0].description.length > 30 ? @products[0].description[0..29] + '...' : @products[0].description)%></div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<div>
-	Movement Type:&nbsp;&nbsp;
-	<select name="movement_type" id="movement_type" onchange="movementOptionControl();">
+<div class='large-text' style='width:150px;float:left;'>Movement Type:</div>
+<div style="float:left;"><select name="movement_type" id="movement_type" onchange="movementOptionControl();">
 		<option value="FMT">FMT</option>
 		<option value="TCP">TCP</option>
 		<option value="WIRELINE">Wireline</option>
@@ -23,30 +22,31 @@
 	</select>
 </div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<div style="float:left;">
-From:&nbsp;&nbsp;&nbsp;&nbsp;<select name="bunkers" id="bunkers" onchange="updateQuantity(document.getElementById('products').value, this.value, 'available-quantity');">
+<div class='large-text' style="float:left;width:150px;">
+From:</div><div style='float:left;'><select name="bunkers" id="bunkers" onchange="updateQuantity(document.getElementById('products').value, this.value, 'available-quantity');">
 <% @bunkers.each do |b| %>
   <option value="<%=b.id%>" ><%=b.name%></option>
 <%end%>
 </select>
 </div>
-<div id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
+<div class='large-text' id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<div style="float:left;">
-To:&nbsp;&nbsp;&nbsp;&nbsp;<select name="bunkers_to" id="bunkers_to">
+<div class='large-text' style="float:left;width:150px;">
+To:</div><div style='float:left;'><select name="bunkers_to" id="bunkers_to">
 <% @bunkers.each do |b| %>
   <option value="<%=b.id%>" ><%=b.name%></option>
 <%end%>
 </select>
 </div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<div>
-Location:&nbsp;&nbsp;<input type="text" name="overseas_location" id="overseas_location" value="" disabled="true"/>
+<div class="large-text" style="width:150px;float:left;">
+Location:</div><div style="float:left;"><input type="text" name="overseas_location" id="overseas_location" value="" disabled="true"/>
 </div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<div>
-Quantity:&nbsp;&nbsp;<input type="text" name="quantity" id="quantity" value=""/>
+<div class="large-text" style="width:150px;float:left;">
+Quantity:</div><div style="float:left;"><input type="text" name="quantity" id="quantity" value=""/>
 </div>
+<div style="clear:both;line-height:5px;">&nbsp;</div>
 <input type="submit" value="Move" />
 </form>
 <% @products.each do |p| %>

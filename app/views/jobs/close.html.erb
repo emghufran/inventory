@@ -1,36 +1,46 @@
-<p>Close Job</p>
+<div class='heading-text'>Close Job</div>
 <!-- render details of Job table here.. -->
+<table>
+	<tr class="large-text">
+		<td width="90">Engineer:</td><td width="130"><%=@job.engineer%></td>
+		<td width="90">Supervisor:</td><td width="130"><%=@job.gun_shop_superviser%></td>
+		<td width="150">Truck:</td><td width="90"><%=@job.truck%></td></tr>
+	<tr class="large-text"><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td>
+    <td width="150">Explosive Van:</td><td width="90"><%=@job.explosive_van%></td>
+  </tr>
+</table>
+<div style="clear:both;line-height:5px;">&nbsp;</div>
 
 <input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
 <input type="hidden" value="<%=@job.id%>" id="job_id"/>
 <div><span id="error" class='error' style="display:none;"></div>
 <table>
-<tr><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Consumed</th><th>Signed In</th><th>Junk</th></tr>
+<tr class='large-text'><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Consumed</th><th>Signed In</th><th>Junk</th></tr>
 <% if(@job_details.length == 0) %>
 <span class="alert">There are currently no parts assosiated with this job.</span>
 <% end %>
 <% count = 1 %>
 <% @job_details.each do |j| %>
-	<tr>
+	<tr class='normal-text'>
 		<%part_bunker = "p#{j.part_id}b#{j.bunker_id}j#{j.job_id}"%>
 		<td><%=count%></td>
-		<td><%= resize_string(j.part_desc) %></td>
+		<td><%= resize_string(j.part_desc, 35) %></td>
 		<td><%=j.bunker_name%></td>
 		<td class="quantity" id="<%='curr_'+part_bunker%>"><%=j.quantity%>
 			<input type="hidden" id="quantity_<%=part_bunker%>" name="quantity[]" value="<%=j.quantity%>"/>
 		</td>
 		<td>
-			<input type="text" id="consumed_<%=part_bunker%>" name="consumed[]" />
+			<input type="text" id="consumed_<%=part_bunker%>" name="consumed[]" size='10'/>
 		</td>
 		<td>
-			<input type="text" id="signin_<%=part_bunker%>" name="signin[]" />
+			<input type="text" id="signin_<%=part_bunker%>" name="signin[]" size='10'/>
 		</td>
 		<td>
-			<input type="text" id="junk_<%=part_bunker%>" name="junk[]" />
+			<input type="text" id="junk_<%=part_bunker%>" name="junk[]" size='10'/>
 		</td>
 	</tr>
 	
 	<% count += 1 %>
 <% end %>
 </table>
-<a href="javascript:;" onclick="validateAndClose(); return false;">Close</a>
+<div class="large-text"><a href="javascript:;" onclick="validateAndClose(); return false;">Close</a></div>	

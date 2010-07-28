@@ -40,7 +40,7 @@
 	  filepath = @product.ce_certificate.strip.sub(/^public/, '')
 	  end
 	%>
-	<% if filepath.length > 0 %>
+	<% if filepath && filepath.length > 0 %>
 	<a href='<%= "#{SITE_URL}#{filepath}"%>'>View</a>
 	<% end%>
 	</td>

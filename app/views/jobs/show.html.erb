@@ -1,23 +1,23 @@
-<p>Job Details</p>
+<div class="heading-text">Job Details</div>
 <!-- render details of Job table here.. -->
 <input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
 <input type="hidden" value="<%=@job.id%>" id="job_id"/>
 <table>
-	<tr>
+	<tr class="large-text">
 		<td width="90">Engineer:</td><td width="130"><%=@job.engineer%></td>
 		<td width="90">Supervisor:</td><td width="130"><%=@job.gun_shop_superviser%></td>
 		<td width="150">Truck:</td><td width="90"><%=@job.truck%></td></tr>
-	<tr><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td>
-    <td width="150">Explosive Van:</td><td width="90"><%=%></td>
+	<tr class="large-text"><td width="90">Rig:</td><td width="110"><%=@job.rig%></td><td width="90">Well:</td><td width="90"><%=@job.well%></td>
+    <td width="150">Explosive Van:</td><td width="90"><%=@job.explosive_van%></td>
   </tr>
 </table>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div><span id="error" class='error' style="display:none;"></div>
-<div>
+<div class="large-text">
 <% if @job and @job.attachment_path and @job.attachment_path.strip.length > 0
 	filepath = @job.attachment_path.strip.sub(/^public/, '')
 %>
-<div><a href='<%= "#{SITE_URL}#{filepath}"%>'>View Transportation NOC</a></div>
+<div class="large-text"><a href='<%= "#{SITE_URL}#{filepath}"%>'>View Transportation NOC</a></div>
 <%	end%>
 <%= form_tag ({:action => 'upload_file', :controller => 'jobs'}, :multipart => true) %>
 <p><label for="upload_file">Transportation NOC</label> : 
@@ -29,16 +29,16 @@
 
 </div>
 <table>
-<tr><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Avail. Quantity</th><th></th><th></th></tr>
+<tr class="large-text"><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Avail. Quantity</th><th></th><th></th></tr>
 <% if(@job_details.length == 0) %>
 <span class="alert">There are currently no parts assosiated with this job.</span>
 <% end %>
 <% count = 1 %>
 <% @job_details.each do |j| %>
-	<tr>
+	<tr class="normal-text">
 		<%part_bunker = "p#{j.part_id}b#{j.bunker_id}j#{j.job_id}"%>
 		<td><%=count%></td>
-		<td><%= resize_string(j.part_desc) %></td>
+		<td><%= resize_string(j.part_desc, 40) %></td>
 		<td><%=j.bunker_name%></td>
 		<td id="<%='curr_'+part_bunker%>"><%=j.quantity%></td>
 		<td id="<%='avail_'+part_bunker%>"><%=j.available_quantity%></td>
@@ -57,8 +57,8 @@
 <% end %>
 </table>
 
-<!--Add HTML Starts HERE -->
-<div style="clear:both;"></div>
+<!--Add HTML Starts HERE -->	
+<div style="clear:both;line-height:5px;">&nbsp;</div>
 <div style="float:left;">
 <select name="products" id="products" onchange="updateQuantity(this.value, document.getElementById('bunkers').value, 'available-quantity'); updateProductDescription(this.value, 'product-description');">
 <% @products.each do |p| %>
@@ -66,7 +66,7 @@
 <%end%>
 </select>
 </div>
-<div id="product-description" style="float:left;width:250px;"><%= (@products[0].description.length > 17 ? @products[0].description[0..16] + '...' : @products[0].description)%></div>
+<div class = "normal-text" id="product-description" style="float:left;width:250px;font-size:13px;">&nbsp;<%= (@products[0].description.length > 35 ? @products[0].description[0..34] + '...' : @products[0].description)%></div>
 <div style="float:left;">
 <select name="bunkers" id="bunkers" onchange="updateQuantity(document.getElementById('products').value, this.value, 'available-quantity');">
 <% @bunkers.each do |b| %>
@@ -74,14 +74,14 @@
 <%end%>
 </select>
 </div>
-<div id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
+<div class="large-text" id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
 <input name="quantity" id="quantity" type="text" value="" />
-<a href="javascript:;" onclick="addProductToList();">Add</a>
+<span class="large-text"><a href="javascript:;" onclick="addProductToList();">&nbsp;Add</a></span>
 
 <div style="clear:both;"></div>
 <div class="product-list" id="product-list"></div>
 <div style="clear:both;"></div>
-<div><a href="javascript:;" onclick="addProductsToExistingJob();">Add new Parts</a></div>
+<div class="large-text"><a href="javascript:;" onclick="addProductsToExistingJob();">Add new Parts</a></div>
 <div style="clear:both;"></div>
 <div class="product-list-hid" id="product-list-hid" style="display:none;"></div>
 <% @products.each do |p| %>

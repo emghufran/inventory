@@ -1,13 +1,12 @@
 <% if flash[:notice] %>
   <div class="notice"><%= flash[:notice] %></div>
 <% end %>
-<a href="/jobs/new" target="_blank">New Job</a>
-<br/>
-<a href="http://www.w3schools.com/" target="_blank">Load Job</a><br/>
-<a href="http://www.w3schools.com/" target="_blank">Move Job</a><br/>
+<a href="/jobs/new">New Job</a><br/>
+<a href="/jobs">List Jobs</a><br/>
+<a href="/movement">Movement</a><br/>
 <%= link_to 'Inventory Management', products_path %><br/>
 <%= link_to 'Bunker Management', bunkers_path %><br/>
 <%= link_to 'Order Management', orders_path %><br/>
-<a href="http://www.w3schools.com/" target="_blank">Reports</a><br/>
+<a href="/reports">Reports</a><br/>
 <a href="http://www.w3schools.com/" target="_blank">Historicals</a><br/>
 <a href="http://www.w3schools.com/" target="_blank">Explosive Load</a><br/>

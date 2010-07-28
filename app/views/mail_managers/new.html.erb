@@ -1,17 +1,17 @@
-<h1>New mail_manager</h1>
+<div class="heading-text">New Mail Manager</div>
 
 <% form_for(@mail_manager) do |f| %>
   <%= f.error_messages %>
-  <p><%= label_tag 'Email:' %>&nbsp;
-  <%= f.text_field :email %></p>
-  <p><%= label_tag 'Group:' %>&nbsp;<select name="mail_manager[role]">
+  <div class='large-text'><%= label_tag 'Email:' %>&nbsp;
+  <%= f.text_field :email %></div>
+  <div class='large-text'><%= label_tag 'Group:' %>&nbsp;<select name="mail_manager[role]">
   		<option value="Account Approval" selected>Account Approval</option>
   		<option value="Job Approval">Job Approval</option>
   		<option value="Inventory Managers">Inventory Managers</option>
 		</select>  
-  </p>
+  </div class='large-text'>
   <p>
     <%= f.submit "Create" %>
   </p><% end %>
 
-<%= link_to 'Back', mail_managers_path %>
+<div class='large-text'><%= link_to 'Back', mail_managers_path %></div>

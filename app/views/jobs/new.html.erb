@@ -1,13 +1,13 @@
 <div><span id="error" class='error' style="display:none;"></div>
 <%= render :partial => "notify_low_inventory" %>
-<div>
-	<label>Engineer:&nbsp;</label><input type="text" name="engineer" id="engineer" value=""/>&nbsp;
-	<label>Supervisor:&nbsp;</label><input type="text" name="supervisor" id="supervisor" value=""/>&nbsp;
-	<label>Truck:&nbsp;</label><input type="text" name="truck" id="truck" value=""/>&nbsp;
+<div class="large-text">
+	<div style="width:100px;float:left;">Engineer:&nbsp;</div><div style="float:left;"><input type="text" name="engineer" id="engineer" value=""/>&nbsp;</div>
+	<div style="width:100px;float:left;">Supervisor:&nbsp;</div><div style="float:left;"><input type="text" name="supervisor" id="supervisor" value=""/>&nbsp;</div>
+	<div style="width:100px;float:left;">Truck:&nbsp;</div><div><input type="text" name="truck" id="truck" value=""/>&nbsp;</div>
 	<div style="clear:both;line-height:5px;">&nbsp;</div>
-	<label>Rig:&nbsp;</label><input type="text" name="rig" id="rig" value=""/>&nbsp;
-	<label>Well:&nbsp;</label><input type="text" name="well" id="well" value=""/>&nbsp;
-	<label>Explosive Van:&nbsp;</label><input type="text" name="explosive_van" id="explosive_van" value=""/>&nbsp;
+	<div style="width:100px;float:left;">Rig:&nbsp;</div><div style="float:left;"><input type="text" name="rig" id="rig" value=""/>&nbsp;</div>
+	<div style="width:100px;float:left;">Well:&nbsp;</div><div style="float:left;"><input type="text" name="well" id="well" value=""/>&nbsp;</div>
+	<div style="width:100px;float:left;">Explosive Van:&nbsp;</div><div style="float:left;"><input type="text" name="explosive_van" id="explosive_van" value=""/>&nbsp;</div>
 </div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div style="float:left;">
@@ -18,7 +18,7 @@
 <%end%>
 </select>
 </div>
-<div id="product-description" style="float:left;width:250px;"><%= (@products[0].description.length > 17 ? @products[0].description[0..16] + '...' : @products[0].description)%></div>
+<div class="large-text" id="product-description" style="float:left;width:250px;"><%= (@products[0].description.length > 35 ? @products[0].description[0..34] + '...' : @products[0].description)%></div>
 <div style="float:left;">
 <select name="bunkers" id="bunkers" onchange="updateQuantity(document.getElementById('products').value, this.value, 'available-quantity');">
 <% @bunkers.each do |b| %>
@@ -26,14 +26,14 @@
 <%end%>
 </select>
 </div>
-<div id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
+<div class="large-text" id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
 <input name="quantity" id="quantity" type="text" value="" />
-<a href="javascript:;" onclick="addProductToList();">Add</a>
+<span class="large-text"><a href="javascript:;" onclick="addProductToList();">Add</a></span>
 
+<div style="clear:both;line-height:5px;">&nbsp;</div>
+<div class="product-list normal-text" id="product-list"></div>
 <div style="clear:both;"></div>
-<div class="product-list" id="product-list"></div>
-<div style="clear:both;"></div>
-<div><a href="javascript:;" onclick="createJob();">Create</a></div>
+<div class="large-text"><a href="javascript:;" onclick="createJob();">Create</a></div>
 <div style="clear:both;"></div>
 <div class="product-list-hid" id="product-list-hid" style="display:none;"></div>
 <% @products.each do |p| %>

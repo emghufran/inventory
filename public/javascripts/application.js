@@ -26,7 +26,7 @@ function updateQuantity(part_id, bunker_id, update_div)
 function updateProductDescription(product_id, update_div) {
   desc = document.getElementById("product_"+product_id).value;
   if(typeof(update_div) != 'undefined' && update_div.length > 0) {
-    document.getElementById(update_div).innerHTML = desc.truncate(20);
+    document.getElementById(update_div).innerHTML = desc.truncate(35);
   }
   return desc;
 }
@@ -39,7 +39,7 @@ function addProductToList() {
   var available_quantity = parseInt(updateQuantity(product_id, bunker_id));
   //alert("product: "+ product_id + "::bunker: " + bunker_id + "::quantity: " + quantity + "::available: " + available_quantity);
 
-  var product_detail = updateProductDescription(product_id).truncate();
+  var product_detail = updateProductDescription(product_id).truncate(35);
   var bunker_name = $('bunker_'+bunker_id).value;
 
   if (available_quantity < parseInt(quantity)) {
@@ -61,8 +61,8 @@ function addProductToList() {
   }
 
   $('product-list-hid').insert("<input type='hidden' value='"+ unique_value +"' name='products[]' id='" + unique_id + "' />", { position : "bottom" });
-  $('product-list').insert("<div id='dis_" + unique_id + "'><span>"+ product_detail + "</span><span>" + bunker_name + "</span><span>" + quantity 
-    + "</span><span><a href='javascript:;' onclick='removeProduct(\""+unique_id+"\");'>Remove</a></span></div>", { position : "bottom" });
+  $('product-list').insert("<div class='normal-text' id='dis_" + unique_id + "'><div style='float:left;width:280px;' >"+ product_detail + "</div><div style='float:left;width:150px;'>" + bunker_name + "</div><div class='large-text' style='float:left;width:80px;'>" + quantity 
+    + "</div><div class='large-text' style='float:left;'><a href='javascript:;' onclick='removeProduct(\""+unique_id+"\");'>Remove</a></div><div style='clear:both;'></div></div>", { position : "bottom" });
 
 }
 
@@ -285,7 +285,7 @@ function validateAndClose() {
 	job_id = $('job_id').value;
 	submit_val = 'job_id=' + job_id + "&products=";
 	sep_str = '';
-	
+	quantity_error = false;
 	quantities.each(function(s, index) {
 		submit_val = submit_val + sep_str;
 		sep_str = '||'; 
@@ -302,17 +302,19 @@ function validateAndClose() {
 				
 		total = consumed + junk + signin;
 		query_str = "C"+consumed+":J"+junk+":S"+signin;
-		//alert(query_str);
-		
+		//alert(query_str);		
 		if(quantity != total) {
 			displayError("Quantitites do not match");
-			return false;
+			quantity_error = true;
+			return;
 		}
 		submit_val = submit_val + unique_id + "|" + query_str;
 	});	
 	submit_val = submit_val +"&authenticity_token="+ $('authenticity_token').value;
 	//alert(submit_val);
-
+	if(quantity_error == true) {
+		return;
+	}
 	new Ajax.Request('/jobs/close_job', {
     method: 'post',
     asynchronous: false,

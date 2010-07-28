@@ -9,13 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100710080142) do
+ActiveRecord::Schema.define(:version => 20100724130058) do
 
   create_table "bunkers", :force => true do |t|
     t.string   "name"
     t.string   "location"
     t.integer  "product_id"
     t.integer  "quantity"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "data_files", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,6 +47,15 @@ ActiveRecord::Schema.define(:version => 20100710080142) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "status",              :limit => 40
+    t.string   "attachment_path"
+    t.string   "explosive_van",       :limit => 64
+  end
+
+  create_table "mail_managers", :force => true do |t|
+    t.string   "email"
+    t.string   "role",       :limit => 64
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "movements", :force => true do |t|
@@ -52,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20100710080142) do
     t.string   "location"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "movement_type"
   end
 
   create_table "orders", :force => true do |t|
@@ -59,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20100710080142) do
     t.integer  "user_id"
     t.integer  "original_quantity"
     t.integer  "received_quantity"
+    t.string   "order_number"
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -67,20 +83,25 @@ ActiveRecord::Schema.define(:version => 20100710080142) do
   create_table "products", :force => true do |t|
     t.string   "part_number"
     t.string   "description"
-    t.integer  "lawson_price",     :limit => 10, :precision => 10, :scale => 0
+    t.integer  "lawson_price",                 :limit => 10, :precision => 10, :scale => 0
     t.string   "box_size"
     t.integer  "un_num"
     t.string   "class_name"
     t.integer  "package_quantity"
     t.string   "package_type"
-    t.integer  "gross_weight",     :limit => 10, :precision => 10, :scale => 0
-    t.integer  "net_weight",       :limit => 10, :precision => 10, :scale => 0
-    t.integer  "gm_box",           :limit => 10, :precision => 10, :scale => 0
-    t.integer  "gm_unit",          :limit => 10, :precision => 10, :scale => 0
+    t.integer  "gross_weight",                 :limit => 10, :precision => 10, :scale => 0
+    t.integer  "net_weight",                   :limit => 10, :precision => 10, :scale => 0
+    t.integer  "gm_box",                       :limit => 10, :precision => 10, :scale => 0
+    t.integer  "gm_unit",                      :limit => 10, :precision => 10, :scale => 0
     t.string   "um"
     t.integer  "spf"
     t.datetime "updated_at"
     t.datetime "created_at"
+    t.string   "ce_certificate"
+    t.string   "transport_approval_document"
+    t.string   "product_identification_sheet"
+    t.string   "msds"
+    t.string   "declaration_of_conformity"
   end
 
   create_table "update_inventories", :force => true do |t|
@@ -101,8 +122,8 @@ ActiveRecord::Schema.define(:version => 20100710080142) do
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
-    t.integer  "role_id",                                  :default => 1
     t.integer  "is_approved",                              :default => 0
+    t.string   "role",                                     :default => "Engineer"
   end
 
   add_index "users", ["login"], :name => "index_users_on_login", :unique => true

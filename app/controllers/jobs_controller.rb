@@ -9,7 +9,7 @@ class JobsController < ApplicationController
   end
  
   def index
-    @jobs = Job.find(:all, :conditions => ["status = 'Open'"], :order => "id DESC")
+    @jobs = Job.find(:all, :conditions => ["status = 'Approved'"], :order => "id DESC")
   end
    
   def create
@@ -72,8 +72,8 @@ class JobsController < ApplicationController
     		jd.save
     	end
     	debugger
-    	user = User.find(j.user_id.to_i) || User.first
-    	Emailer.deliver_approve_job_request(j, user)
+    	user = User.first
+    	#Emailer.deliver_approve_job_request(j, user)
 	 end
 
 	 render :text => "#{job_id}||#{SITE_URL}/jobs/#{job_id}"
@@ -254,7 +254,7 @@ class JobsController < ApplicationController
   def close_job
     job_id = params[:job_id]
   	@job = Job.find(job_id)
-
+   debugger
   	products = params[:products]
     products = products.split("||")
     part_hash = {}
@@ -316,10 +316,10 @@ class JobsController < ApplicationController
 	 job_id = params[:id]
   	 @job = Job.find(job_id.to_i)
   	 if !@job #didnt find user.
-  	 	flash[:error]  = "We couldn't find the requested job."
+  	 	flash[:notice]  = "We couldn't find the requested job."
   	 	redirect_to :controller => 'main', :action => 'index'
   	 elsif @job.status == "Approved"
-  	 	flash[:error]  = "This job has already been Approved!"
+  	 	flash[:notice]  = "This job has already been Approved!"
   	 	redirect_to :controller => 'jobs', :action => 'show', :id => job_id
   	 end
   	 

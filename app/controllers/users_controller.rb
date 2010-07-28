@@ -30,7 +30,6 @@ class UsersController < ApplicationController
   def activate
   	 user_id = params[:id]
   	 @user = User.find(user_id.to_i)
-  	 debugger
   	 if !@user #didnt find user.
   	 	flash[:error]  = "We couldn't find the requested user."
   	 	redirect_to :controller => 'main', :action => 'index'
@@ -45,7 +44,7 @@ class UsersController < ApplicationController
 	 	@user.is_approved = 1
 	 	@user.role = (role == "Manager" ? role : "Engineer")
 	 	@user.save
-	 	#Emailer.deliver_account_activation_confirmation(@user)
+	 	Emailer.deliver_account_activation_confirmation(@user)
 	 	flash[:notice] = "User has been approved and will now be able to use the site!"
 	 	redirect_to :controller => 'main', :action => 'index'
 	 elsif approval && approval.to_i == 0

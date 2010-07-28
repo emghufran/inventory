@@ -1,7 +1,6 @@
-<h1>Order Details</h1>
-
+<div class='heading-text'>Order Details</div>
  <table border="1" cellpadding="3" >
-  <tr>
+  <tr class="large-text">
   <td><%= label_tag 'Part Number'%></td>
   <td><%= label_tag 'Description' %></td>
   <td><%= label_tag 'Order No' %></td>
@@ -9,7 +8,7 @@
   <td><%= label_tag 'Order Status' %></td>
   </tr>
 
-  <tr>
+  <tr class="normal-text">
   <td><%= label_tag @order[:part_number]%></td>
   <td><%= label_tag @order[:description] %></td>
   <td><%= label_tag @order[:order_number] %></td>
@@ -17,6 +16,7 @@
   <td><%= label_tag @order[:status] %></td>
   </tr>
 </table>
-<a href="">
+<div class="large-text">
 <%= link_to 'Receive', '/orders/receive/'+@order[:id].to_s() %> |
 <%= link_to 'Back', orders_path %>
+</div>

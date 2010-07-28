@@ -1,12 +1,12 @@
-<h1>Listing mail_managers</h1>
+<div class='heading-text'>Mail Managers</div>
 
 <table>
-  <tr>
+  <tr class='large-text'>
     <th>Email</th><th>Role</th><th></th><th></th>
   </tr>
 
 <% for mail_manager in @mail_managers %>
-  <tr>
+  <tr class='normal-text'>
   	 <td><%= mail_manager.email %></td>
   	 <td><%= mail_manager.role %></td>
     <td><%= link_to 'Show', mail_manager %></td>
@@ -15,7 +15,5 @@
   </tr>
 <% end %>
 </table>
-
 <br />
-
-<%= link_to 'New mail_manager', new_mail_manager_path %>
+<div class='large-text'><%= link_to 'New Mail Manager', new_mail_manager_path %></div>

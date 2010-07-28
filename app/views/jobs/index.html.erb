@@ -1,8 +1,8 @@
-<p>Jobs List</p>
+<div class="heading-text">Jobs List</div>
 <table>
-<th><td>ID</td></td><td>Engineer</td><td>Status</td><td>Created Date</td><td></td></th>
+<tr class="large-text"><td>ID</td><td>Engineer</td><td>Status</td><td>Created Date</td><td></td></tr>
 <% @jobs.each do |j| %>
-	<tr id="job_"<%=j.id%>>
+	<tr id='<%="job_#{j.id}"%>' class="normal-text">
 		<td><a href='/jobs/<%=j.id%>'><%=j.id%></a></td><td><%=j.engineer%></td><td><%=j.status%></td><td><%=j.created_at.strftime('%Y-%m-%d %H:%M')%></td>
 				<td><a href="/jobs/close/<%=j.id%>">Close Job</a></td>	
 	</tr>
