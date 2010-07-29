@@ -1,7 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
-  map.report_job_summary "/reports/explosive_bunker_based/:location", :controller => "reports", :action => "explosive_bunker_based"
-  map.report_job_summary "/reports/explosive_location_based/:location", :controller => "reports", :action => "explosive_location_based"
-  map.report_job_summary "/reports/fmt_in_out", :controller => "reports", :action => "fmt_in_out"
+ 
+  map.report_job_bunker "/reports/explosive_bunker_based/:location", :controller => "reports", :action => "explosive_bunker_based"
+  map.report_job_location "/reports/explosive_location_based/:location", :controller => "reports", :action => "explosive_location_based"
+  map.report_job_fmt "/reports/fmt_in_out", :controller => "reports", :action => "fmt_in_out"
   map.report_job_summary "/reports/job_summary", :controller => "reports", :action => "job_summary"
   map.report_explosives_quantities "/reports/explosives_quantities", :controller => "reports", :action => "explosives_quantities"
   map.movement_index "/movement", :controller => "movement", :action => "index" 

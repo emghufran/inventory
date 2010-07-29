@@ -53,7 +53,8 @@ Order By b.location_code")
 
   end
   def explosive_location_based
-     @results = ActiveRecord::Base.connection.execute("Select pr.part_number,pr.description,received.Received,FMT.FMTIN, field.field_in,field.field_out,FMT.FMTOUT ,field.field_junk,field.used
+     @results = ActiveRecord::Base.connection.execute("Select pr.part_number,pr.description,received.Received,FMT.FMTIN, field.field_in,field.field_out,FMT.FMTOUT ,field.field_junk,field.used,original.closing_quantity,
+(original.closing_quantity + ifnull(field.field_out,0) + ifnull(FMT.FMTOUT,0)) - (ifnull(received.Received,0) + ifnull(FMT.FMTIN,0)+ ifnull(field.field_in,0)) opening_quantity
 from products pr
 Left outer JOIN
 (
@@ -92,8 +93,17 @@ select part_id,SUM(received_quantity) Received from orders o
 inner join bunkers b on o.bunker_id = b.id and b.location = '"+params[:location]+"'
 Where o.status = 'received' and DATE_FORMAT( o.updated_at,  '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) ,  '%Y-%m-01' )
 Group by part_id) received on received.part_id = pr.id
+left outer join
+(
+select i.part_id,SUM(i.quantity) closing_quantity
+from update_inventories i
+inner join bunkers b on i.bunker_id = b.id and b.location = '"+params[:location]+"'
+Group By i.part_id
+) As original on pr.id = original.part_id
+
 Where field.part_id is not null or FMT.part_id is not null or received.part_id is not null
-order by pr.part_number")
+order by pr.part_number
+      ")
 
     file_path = write_explosive_csv(@results)
     #render :text => "done"
@@ -102,49 +112,50 @@ order by pr.part_number")
   end
 
     def explosive_bunker_based
-     @results = ActiveRecord::Base.connection.execute(" Select  pr.part_number,pr.description,received.Received,FMT.FMTIN, field.field_in,field.field_out,FMT.FMTOUT ,field.field_junk,field.used,
-IFNULL(received.name,IFNULL(FMT.name,field.name)) Bunker
-from products pr
-Left outer JOIN
+     @results = ActiveRecord::Base.connection.execute("Select b.name Bunker,p.part_number,p.description,ui.quantity closing_quantity,
+field.field_in,field.field_out,field.field_junk,fmt.FMTIN,fmt.FMTOUT,field.used
+,received.Received,
+(ui.quantity + ifnull(field.field_out,0) + ifnull(fmt.FMTOUT,0)) - (ifnull(received.Received,0) + ifnull(fmt.FMTIN,0)+ ifnull(field.field_in,0)) opening_quantity
+from products p
+inner join update_inventories ui on p.id = ui.part_id
+inner join bunkers b on ui.bunker_id = b.id and b.location='"+params[:location]+"'
+left outer join
 (
-SELECT p.id part_id,b.name, p.part_number, p.description, sum( jd.quantity ) AS field_out, sum( jd.sign_in ) AS field_in, sum( jd.consumed ) AS used, sum( jd.junk ) AS field_junk
+SELECT p.id part_id,b.id bunker_id, p.part_number, p.description, sum( jd.quantity ) AS field_out, sum( jd.sign_in ) AS field_in, sum( jd.consumed ) AS used, sum( jd.junk ) AS field_junk
 FROM jobs j
 INNER JOIN job_details jd ON j.id = jd.job_id
 INNER JOIN products p ON jd.part_id = p.id
-INNER JOIN bunkers b on jd.bunker_id = b.id and b.location='khaskeili'
+INNER JOIN bunkers b on jd.bunker_id = b.id and b.location='"+params[:location]+"'
 WHERE j.status = 'Approved'
 OR (
 j.status = 'Closed'
 AND DATE_FORMAT( j.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
 )
-GROUP BY p.id, b.name
-) field on field.part_id = pr.id
+GROUP BY p.id, b.id
+) field on field.part_id = p.id and field.bunker_id = b.id
+
 Left outer join
 (
-SELECT p.id part_id,p.part_number PartNumber, p.description Description, p.Um,
+SELECT p.id part_id,b.id bunker_id,
 SUM(CASE m.movement_type WHEN 'FMTIN' THEN m.quantity ELSE 0 END) FMTIN,
-SUM(CASE m.movement_type WHEN 'FMTOUT' THEN m.quantity ELSE 0 END) FMTOUT,
-b.name
+SUM(CASE m.movement_type WHEN 'FMTOUT' THEN m.quantity ELSE 0 END) FMTOUT
 FROM movements m
 INNER JOIN products p ON p.id = m.part_id
-INNER JOIN bunkers b ON b.id = from_id and b.location = 'khaskeili'
+INNER JOIN bunkers b ON b.id = from_id and b.location = '"+params[:location]+"'
 WHERE (m.movement_type = 'FMTOUT'
 OR m.movement_type = 'FMTIN') And
 DATE_FORMAT( m.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
-GROUP BY p.id,p.part_number, p.description, p.um, b.name
-
-)FMT on FMT.part_id = pr.id
-
+GROUP BY p.id,b.id
+)fmt on fmt.part_id = p.id and fmt.bunker_id = b.id
 left outer join
 
 (
-select b.name,part_id,SUM(received_quantity) Received from orders o
-inner join bunkers b on o.bunker_id = b.id and b.location = 'khaskeili'
+select b.id bunker_id,part_id,SUM(received_quantity) Received from orders o
+inner join bunkers b on o.bunker_id = b.id and b.location = '"+params[:location]+"'
 Where o.status = 'received' and DATE_FORMAT( o.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
-Group by part_id,b.name) received on received.part_id = pr.id
-Where field.part_id is not null or FMT.part_id is not null or received.part_id is not null
-
-order by field.name,FMT.name,received.name")
+Group by part_id,b.id
+) received on received.part_id = p.id and b.id = received.bunker_id
+order by b.name")
 
     file_path = write_explosive_bunker_csv(@results)
     #render :text => "done"

@@ -355,26 +355,34 @@ function movementOptionControl()
 	var option_type = $('movement_type').value;
 	if(option_type=="FMT")
 	{
-		$('bunkers').disabled = false;//from
-		$('bunkers_to').disabled = false;	//to
-		$('overseas_location').disabled = true;
+		$('bunkers').style.visibility = 'visible';
+                $('bunkers_to').style.visibility = 'visible';
+                $('overseas_location').disabled = true;
+                $('div_to_bunker').style.visibility = 'hidden';
+                $('div_from_bunker').style.visibility = 'hidden';
 	}
 	else if(option_type=="TCP")
 	{
-		$('bunkers').disabled = false;//from
-		$('bunkers_to').disabled = true;	//to
-		$('overseas_location').disabled = true;	
+		$('bunkers').style.visibility = 'visible';//from
+		$('bunkers_to').style.visibility = 'hidden';	//to
+		$('overseas_location').disabled = true;
+                $('div_to_bunker').style.visibility = 'visible';
+                $('div_from_bunker').style.visibility = 'hidden';
 	}
 	else if(option_type=="WIRELINE")
 	{
-		$('bunkers').disabled = true;//from
-		$('bunkers_to').disabled = false;	//to
-		$('overseas_location').disabled = true;	
+		$('bunkers').style.visibility = 'hidden';//from
+		$('bunkers_to').style.visibility = 'visible';	//to
+		$('overseas_location').disabled = true;
+                $('div_to_bunker').style.visibility = 'hidden';
+                $('div_from_bunker').style.visibility = 'visible';
 	}
 	else if(option_type == "OVERSEAS")
 	{
-		$('bunkers').disabled = false;//from
-		$('bunkers_to').disabled = true;	//to
-		$('overseas_location').disabled = false;	
+		$('bunkers').style.visibility = 'visible';//from
+		$('bunkers_to').style.visibility = 'hidden';	//to
+		$('overseas_location').disabled = false;
+                $('div_to_bunker').style.visibility = 'hidden';
+                $('div_from_bunker').style.visibility = 'hidden';
 	}
 } 

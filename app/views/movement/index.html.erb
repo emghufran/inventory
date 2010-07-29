@@ -16,8 +16,8 @@
 <div class='large-text' style='width:150px;float:left;'>Movement Type:</div>
 <div style="float:left;"><select name="movement_type" id="movement_type" onchange="movementOptionControl();">
 		<option value="FMT">FMT</option>
-		<option value="TCP">TCP</option>
-		<option value="WIRELINE">Wireline</option>
+		<option value="TCP">TCP OUT</option>
+		<option value="WIRELINE">TCP IN</option>
 		<option value="OVERSEAS">Overseas</option>
 	</select>
 </div>
@@ -29,6 +29,8 @@ From:</div><div style='float:left;'><select name="bunkers" id="bunkers" onchange
 <%end%>
 </select>
 </div>
+<div id ="div_from_bunker" style="color: blue; visibility: hidden;float:left;">TCP</div>
+
 <div class='large-text' id="available-quantity" style="width:70px; float:left;margin-left:5px;text-align:center;"><%=@existing_quantity%></div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div class='large-text' style="float:left;width:150px;">
@@ -38,6 +40,7 @@ To:</div><div style='float:left;'><select name="bunkers_to" id="bunkers_to">
 <%end%>
 </select>
 </div>
+<div id ="div_to_bunker" style="color: blue; visibility: hidden;float:left;">TCP</div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div class="large-text" style="width:150px;float:left;">
 Location:</div><div style="float:left;"><input type="text" name="overseas_location" id="overseas_location" value="" disabled="true"/>

@@ -39,9 +39,9 @@ def write_fmtinout_csv(results)
 end
 
 def write_explosive_bunker_csv(results)
-	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_explosives_summary_bunker.csv"
+	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_explosives_summary_bunker_based.csv"
 	file = File.open(file_path, "w")
-	file.puts " Part Number,Description,Received,FMT IN, Field in,Field Out,FMT OUT ,Field Junk,Used,Bunker"
+	file.puts "Bunker,Part Number,Description,Closing quantity,Field in,Field out,Field junk,Fmt in,Fmt out,Used,Received,Opening Quantity"
 	write_str = ''
 	results.each do |r|
 		write_str = r.collect {|elem| elem = '' if !elem; elem.gsub(',', '')}.join(',')
@@ -52,9 +52,9 @@ def write_explosive_bunker_csv(results)
 end
 
 def write_explosive_csv(results)
-	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_explosives_summary_location.csv"
+	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_explosives_summary_location_based.csv"
 	file = File.open(file_path, "w")
-	file.puts " Part Number,Description,Received,FMT IN, Field in,Field Out,FMT OUT ,Field Junk,Used"
+	file.puts " Part Number,Description,Received,Fmt in, Field in,Field Out,Fmt out ,Field Junk,Used,Closing quantity,Opneing quantity"
 	write_str = ''
 	results.each do |r|
 		write_str = r.collect {|elem| elem = '' if !elem; elem.gsub(',', '')}.join(',')
