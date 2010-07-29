@@ -22,3 +22,16 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+config.action_mailer.raise_delivery_errors = false
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  :tls => true,
+  :enable_starttls_auto => true,
+  :address => "smtp.gmail.com",
+  :port => "587",
+  :domain => "explosiveInventory.com",
+  :authentication => :plain,
+  :user_name => "explosive.inventory@gmail.com",
+  :password => "s1mPs0ns"
+}
+
