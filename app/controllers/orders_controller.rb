@@ -60,8 +60,8 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     respond_to do |format|
       if @order.update_attributes("status"=>params[:order][:status],"received_quantity"=>params[:order][:received_quantity])
-        debugger
         if(!params[:order][:bunker_id].nil?)
+          @order.update_attributes("bunker_id"=>params[:order][:bunker_id])
           part_id = Product.find(:first, :conditions => ["part_number = ? ", params[:order][:part_number]]).id
           @inventory = UpdateInventory.find(:first, :conditions => ["part_id = ? and bunker_id = ?", part_id, params[:order][:bunker_id]]) || UpdateInventory.new
           @inventory.part_id = part_id
