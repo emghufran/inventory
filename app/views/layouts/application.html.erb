@@ -9,9 +9,9 @@
   <body>
     <div class="container">
       <div id="header">
-        <%= image_tag("logo.png", :alt => "Sample App", :class => "round") %>
+        <%= image_tag("logo.png", :alt => "Schlumberger", :class => "round") %>
         <ul class="navigation round">
-	  <li><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %>	
+          <li><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %></li>
           <li><%= link_to "Home", '/' %></li>
           <!-- <li><%= link_to "Help", '#' %></li> --> 
 	  <% if(session[:user_id].blank? or session[:user_id] <= 0) %>
@@ -24,6 +24,9 @@
             <li><%= link_to "Admin", '/admin' %></li>
 	  <% end %>
         </ul>
+      </div>
+      <div><h1>Explosive Management System</h1>
+
       </div>
       <div id="content" class="round">
         <%= yield %>
