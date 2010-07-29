@@ -1,4 +1,10 @@
 <div class="heading-text">Sign In</div>
+<% if flash[:notice] %>
+  <div class="vseparate">&nbsp;</div>
+  <div class="notice"><%= flash[:notice] %></div>
+  <div class="vseparate">&nbsp;</div>
+<% end %>
+
 <% form_tag session_path do -%>
 <div class="large-text floatleft140"><%= label_tag 'Login Name:' %></div>
 <div><%= text_field_tag 'login', @login %></div>

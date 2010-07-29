@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
-
+  before_filter :validate_admin_authentication, :only => [ :activate ]
+  
   # render new.rhtml
   def new
     @user = User.new

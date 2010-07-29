@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
-
+    before_filter :validate_authentication 
   def new
+    #validate_authentication
     @existing_quantity = 0
     @products = Product.find(:all,:order => 'id ASC')
     @bunkers = Bunker.find(:all, :order => 'id ASC')
@@ -21,10 +22,12 @@ class JobsController < ApplicationController
     rig = params[:rig]
     truck = params[:truck]
     explosive_van = params[:explosive_van]
-
+	 client_name = params[:client_name]
+	 debugger
     if engineer.strip.length == 0 || supervisor.strip.length == 0 || well.strip.length == 0 || 
-    	rig.strip.length == 0 || truck.strip.length == 0 || explosive_van.strip.length == 0 
-    	render :text => "Please provide valid inputs for Engineer, Supervisor, Truck, Well, Rig and Explosive Van" 
+    	rig.strip.length == 0 || truck.strip.length == 0 || explosive_van.strip.length == 0 || 
+    	client_name.strip.length == 0 
+    	render :text => "Please provide valid inputs for Engineer, Supervisor, Truck, Well, Rig, Explosive Van and Client Name" 
       return
     end
     products.each do |p|
@@ -52,6 +55,7 @@ class JobsController < ApplicationController
 	 j.rig = rig
 	 j.truck = truck
 	 j.explosive_van = explosive_van
+	 j.client_name = client_name
 	 j.status = "Pending Approval"
 	 j.save
 	 job_id = j.id

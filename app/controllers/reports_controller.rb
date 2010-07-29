@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  before_filter :validate_authentication
   def explosives_quantities
     @results = ActiveRecord::Base.connection.execute("SELECT b.name as bunker_name, SUM( p.net_weight * ui.quantity ) /1000 AS weight
     FROM bunkers b

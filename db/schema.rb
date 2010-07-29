@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100724130058) do
+ActiveRecord::Schema.define(:version => 20100729162901) do
 
   create_table "bunkers", :force => true do |t|
     t.string   "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20100724130058) do
     t.integer  "quantity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "location_code"
   end
 
   create_table "data_files", :force => true do |t|
@@ -49,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20100724130058) do
     t.string   "status",              :limit => 40
     t.string   "attachment_path"
     t.string   "explosive_van",       :limit => 64
+    t.string   "client_name",         :limit => 128
   end
 
   create_table "mail_managers", :force => true do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20100724130058) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "bunker_id"
   end
 
   create_table "products", :force => true do |t|

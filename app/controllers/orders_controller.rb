@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.xml
+  before_filter :validate_authentication
   def index
     @orders = Order.find(:all, :joins => "INNER JOIN products p ON orders.part_id = p.id", :select => "orders.*, p.description, p.part_number")
     respond_to do |format|

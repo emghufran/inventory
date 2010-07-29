@@ -1,6 +1,7 @@
 class BunkersController < ApplicationController
   # GET /bunkers
   # GET /bunkers.xml
+  before_filter :validate_authentication
   def index
     @bunkers = Bunker.find(:all)
 

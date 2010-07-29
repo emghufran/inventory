@@ -1,4 +1,5 @@
 class MovementController < ApplicationController
+  before_filter :validate_authentication
   def index
   	 @existing_quantity = 0
     @products = Product.find(:all,:order => 'id ASC')

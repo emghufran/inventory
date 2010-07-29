@@ -87,12 +87,15 @@ function createJob() {
   rig = $('rig').value;
   well = $('well').value;
   explosive_van = $('explosive_van').value;
-  validation = validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van);
+  client_name = $('client_name').value;
+  validation = validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van, client_name);
   if(validation == false) {
     return false;  
   }
   submit_value = "products=" + submit_value + "&authenticity_token="+ $('authenticity_token').value;
-  submit_value = submit_value + "&engineer=" + engineer + "&supervisor=" + supervisor + "&truck=" + truck + "&rig=" + rig + "&well=" + well + "&explosive_van=" + explosive_van;
+  submit_value = submit_value + "&engineer=" + engineer + "&supervisor=" + supervisor + "&truck=" + truck;  
+  submit_value = submit_value + "&rig=" + rig + "&well=" + well + "&explosive_van=" + explosive_van;
+  submit_value = submit_value + "&client_name=" + client_name;
   //alert(submit_value);return;
   new Ajax.Request('/jobs/create', {
     method: 'post',
@@ -101,21 +104,12 @@ function createJob() {
     onSuccess: function(transport){
       response = transport.responseText || "no response text";
       response_arr = response.split('||');
-      alert("response: " + response);
+      //alert("response: " + response);
       if(response_arr.length == 2) {
       	window.location.href = response_arr[1];
-      //}
-      //if(parseInt(response) > 0) {
-      //	hostname = window.location.hostname;
-      //	hostport = window.location.port;
-      //	      	 
-      //	window.location.href = hostname + (hostport.length > 0 ? ':' + hostport : '') + "/view" + response;
       } else {
         displayError(response);
-        //document.getElementById(update_div).innerHTML = response;
       }
-      
-      //alert("Success! \n\n" + response);
     },
     onFailure: function(){ alert('Something went wrong...') }
 
@@ -125,7 +119,7 @@ function createJob() {
 
 }
 
-function validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van) {
+function validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van, client_name) {
 	if(engineer.strip().length == 0) {
 		displayError("Please provide the name of the Engineer");
 		return false;
@@ -143,6 +137,9 @@ function validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_
 		return false;
 	} else if(explosive_van.strip().length == 0) {
 		displayError("Please provide the Explosive Van details");
+		return false;
+	} else if(client_name.strip().length == 0) {
+		displayError("Please provide the Client's Name");
 		return false;
 	}
 	return true;

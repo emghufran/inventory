@@ -2,6 +2,8 @@ class ProductsController < ApplicationController
   layout 'application'
   # GET /products
   # GET /products.xml
+  before_filter :validate_authentication
+  before_filter :validate_admin_authentication, :only => [:edit, :create, :update, :destroy, :update_inventory, :update_inventory_submit, :upload_file]
   def index
     @products = Product.find(:all)
 

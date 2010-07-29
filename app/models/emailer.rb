@@ -1,7 +1,7 @@
 class Emailer < ActionMailer::Base
   def send_activation_request(user)
   		#recievers = ['Ghufran <emghufran@gmail.com>', 'Ghufran <mghfrn@gmail.com>']
-		recievers = MailManager.find(:all, :conditions => ["role = 'Account Approval'"])
+		recievers = MailManager.find(:all, :conditions => ["role = 'Account Approval'"]).collect { |e| e.email }
 		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
 		bcc 				'explosive.inventory@gmail.com'	
   		subject     	"New User registration request"
@@ -26,7 +26,7 @@ class Emailer < ActionMailer::Base
 
 	def approve_job_request(job, user)
 		#recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
-		recievers = MailManager.find(:all, :conditions => ["role = 'Job Approval'"])
+		recievers = MailManager.find(:all, :conditions => ["role = 'Job Approval'"]).collect { |e| e.email }
 		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
 		job_details = JobDetail.find(:all, :conditions => ["job_id = ? ", job.id],
   	 						:joins => " INNER JOIN products p ON job_details.part_id = p.id 
@@ -65,7 +65,7 @@ class Emailer < ActionMailer::Base
 	
 	def notify_insufficient_supplies(user, product_id, bunker_id, quantity)
 		#recievers = ['emghufran@gmail.com', 'mghfrn@gmail.com']
-		recievers = MailManager.find(:all, :conditions => ["role = 'Inventory Managers'"])
+		recievers = MailManager.find(:all, :conditions => ["role = 'Inventory Managers'"]).collect { |e| e.email }
 		recievers = ['explosive.inventory@gmail.com'] if !recievers or recievers.length == 0
 		product = Product.find(:first, :conditions => ["id = ? ", product_id])
 		bunker = Bunker.find(:first, :conditions => ["id = ? ", bunker_id])
