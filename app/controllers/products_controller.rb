@@ -121,7 +121,6 @@ class ProductsController < ApplicationController
     product_id = params[:product_id]
     file_type = params[:upload_file_type]
     redirect_url = params[:return_url]
-    debugger
     file_type_arr = ['ce_certificate', 'transport_approval_document', 'product_identification_sheet', 'msds', 'declaration_of_conformity']
     unless file_type_arr.include?(file_type.downcase)
     	#error

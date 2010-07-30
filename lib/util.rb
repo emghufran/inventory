@@ -14,7 +14,7 @@ end
 def write_job_summary_csv(results)
 	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "job_summary.csv"
 	file = File.open(file_path, "w")
-	file.puts "Issue Date,Truck,Part No.,Description,Total Quantity,Consumed,Junk,Signed-In,Return Date,Well name,Engineer"
+	file.puts "Issue Date,Truck,Part No.,Description,Total Quantity,Consumed,Junk,Signed-In,Return Date,Well name,Engineer,Client"
 	write_str = ''
 	sep_str = ''
 	results.each do |r|
@@ -38,8 +38,8 @@ def write_fmtinout_csv(results)
 	return file_path
 end
 
-def write_explosive_bunker_csv(results)
-	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_explosives_summary_bunker_based.csv"
+def write_explosive_bunker_csv(results, location)
+	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_#{location}_explosives_summary_bunker_based.csv"
 	file = File.open(file_path, "w")
 	file.puts "Bunker,Part Number,Description,Closing quantity,Field in,Field out,Field junk,Fmt in,Fmt out,Used,Received,Opening Quantity"
 	write_str = ''
@@ -51,8 +51,8 @@ def write_explosive_bunker_csv(results)
 	return file_path
 end
 
-def write_explosive_csv(results)
-	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_explosives_summary_location_based.csv"
+def write_explosive_csv(results, location)
+	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_#{location}_explosives_summary_location_based.csv"
 	file = File.open(file_path, "w")
 	file.puts " Part Number,Description,Received,Fmt in, Field in,Field Out,Fmt out ,Field Junk,Used,Closing quantity,Opneing quantity"
 	write_str = ''

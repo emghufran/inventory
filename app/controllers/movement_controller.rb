@@ -15,7 +15,6 @@ class MovementController < ApplicationController
 		movement_type = params[:movement_type]
 		quantity = params[:quantity].to_i
 		location = params[:overseas_location]
-		debugger
 		if(movement_type.downcase == "fmt")
 		  ui = UpdateInventory.find(:first, :conditions => ["part_id = ? and bunker_id = ? ", product_id, from_field])
 		  if !ui

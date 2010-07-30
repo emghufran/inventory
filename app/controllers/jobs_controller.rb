@@ -23,7 +23,6 @@ class JobsController < ApplicationController
     truck = params[:truck]
     explosive_van = params[:explosive_van]
 	 client_name = params[:client_name]
-	 debugger
     if engineer.strip.length == 0 || supervisor.strip.length == 0 || well.strip.length == 0 || 
     	rig.strip.length == 0 || truck.strip.length == 0 || explosive_van.strip.length == 0 || 
     	client_name.strip.length == 0 
@@ -75,7 +74,6 @@ class JobsController < ApplicationController
     		jd.quantity = p[2]
     		jd.save
     	end
-    	debugger
     	user = User.find(j.user_id.to_i) if j.user_id 
     	user = User.first if !user
     	Emailer.deliver_approve_job_request(j, user)
@@ -259,7 +257,6 @@ class JobsController < ApplicationController
   def close_job
     job_id = params[:job_id]
   	 @job = Job.find(job_id)
-    debugger
   	 products = params[:products]
     products = products.split("||")
     part_hash = {}
@@ -299,7 +296,7 @@ class JobsController < ApplicationController
       j.save
 
 		if(val[2].to_i > 0)
-			ui = UpdateInventory.find(:first, :conditions =>["part_id = ?, bunker_id = ? ", part_params[1], part_params[2]])
+			ui = UpdateInventory.find(:first, :conditions =>["part_id = ? AND bunker_id = ? ", part_params[1], part_params[2]])
 			if !ui
 				ui = UpdateInventory.create(:part_id => part_params[1], :bunker_id => part_params[2], :quantity => val[2])
 			end 
@@ -359,7 +356,6 @@ class JobsController < ApplicationController
 	 product_id = params[:product_id]
 	 bunker_id = params[:bunker_id]
 	 quantity = params[:quantity]
-	 debugger
 	 if(session[:user_id])
 	 	user = User.find(session[:user_id])
 	 else

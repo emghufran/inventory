@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
   	 
   	 @results = ActiveRecord::Base.connection.execute("SELECT j.created_at, j.truck, p.part_number, p.description, 
   	 sum(quantity) as total_quantity, sum(jd.consumed) as consumed_total, sum(jd.junk) as junk_total,
-  	 sum(jd.sign_in) as signin_total, jd.updated_at as closing_date, j.well, j.engineer
+  	 sum(jd.sign_in) as signin_total, jd.updated_at as closing_date, j.well, j.engineer, j.client_name
 	 FROM jobs j
     INNER JOIN job_details jd ON j.id = jd.job_id
     INNER JOIN products p ON jd.part_id = p.id
@@ -105,7 +105,7 @@ Where field.part_id is not null or FMT.part_id is not null or received.part_id i
 order by pr.part_number
       ")
 
-    file_path = write_explosive_csv(@results)
+    file_path = write_explosive_csv(@results, params[:location])
     #render :text => "done"
     send_file file_path
 
@@ -157,7 +157,7 @@ Group by part_id,b.id
 ) received on received.part_id = p.id and b.id = received.bunker_id
 order by b.name")
 
-    file_path = write_explosive_bunker_csv(@results)
+    file_path = write_explosive_bunker_csv(@results, params[:location])
     #render :text => "done"
     send_file file_path
 
