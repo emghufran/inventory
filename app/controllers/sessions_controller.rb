@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
       session[:user_name] = user.login
       session[:user_id] = user.id
       session[:role] = user.role
+      session[:is_approved] = user.is_approved
       redirect_back_or_default('/')
       flash[:notice] = "Logged in successfully"
     else
