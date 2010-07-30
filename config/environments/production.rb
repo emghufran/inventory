@@ -3,7 +3,7 @@
 # The production environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
-SITE_URL = "http://www.schlumberger.com"
+SITE_URL = "http://163.183.56.138:3000"
 # Enable threaded mode
 # config.threadsafe!
 
