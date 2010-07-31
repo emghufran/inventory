@@ -82,18 +82,17 @@ function createJob() {
     }
   });
   engineer = $('engineer').value;
-  supervisor = $('supervisor').value;
   truck = $('truck').value;
   rig = $('rig').value;
   well = $('well').value;
   explosive_van = $('explosive_van').value;
   client_name = $('client_name').value;
-  validation = validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van, client_name);
+  validation = validateJobGenParams(engineer, truck, rig, well, explosive_van, client_name);
   if(validation == false) {
     return false;  
   }
   submit_value = "products=" + submit_value + "&authenticity_token="+ $('authenticity_token').value;
-  submit_value = submit_value + "&engineer=" + engineer + "&supervisor=" + supervisor + "&truck=" + truck;  
+  submit_value = submit_value + "&engineer=" + engineer + "&truck=" + truck;  
   submit_value = submit_value + "&rig=" + rig + "&well=" + well + "&explosive_van=" + explosive_van;
   submit_value = submit_value + "&client_name=" + client_name;
   //alert(submit_value);return;
@@ -119,12 +118,9 @@ function createJob() {
 
 }
 
-function validateJobGenParams(engineer, supervisor, truck, rig, well, explosive_van, client_name) {
+function validateJobGenParams(engineer, truck, rig, well, explosive_van, client_name) {
 	if(engineer.strip().length == 0) {
 		displayError("Please provide the name of the Engineer");
-		return false;
-	} else if(supervisor.strip().length == 0) {
-		displayError("Please provide the name of the Supervisor");
 		return false;
 	} else if(truck.strip().length == 0) {
 		displayError("Please provide the number of the Truck");

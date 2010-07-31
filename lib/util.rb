@@ -68,10 +68,12 @@ def validate_authentication
 	if !session[:user_id] || session[:user_id].blank? || session[:user_id].to_i <= 0
 		flash[:notice] = "Authorization required! Please login to continue.."
 		redirect_to :controller => "sessions", :action => "new"
+		return
 	end
 	if !session[:is_approved] || session[:is_approved] == 0
 		flash[:notice] = "Your account is not yet approved. You need an approved account to use this system."
 		redirect_to :controller => "main", :action => "index"
+		return
 	end 
 end
 
@@ -79,12 +81,15 @@ def validate_admin_authentication
 	if !session[:user_id] || session[:user_id].blank? || session[:user_id].to_i <= 0
 		flash[:notice] = "Authorization required! Please login to continue.."
 		redirect_to :controller => "sessions", :action => "new"
+		return
 	elsif !session[:is_approved] || session[:is_approved] == 0
 		flash[:notice] = "Your account is not yet approved. You need an approved account to use this system."
 		redirect_to :controller => "main", :action => "index"
+		return
 	elsif session[:role] != 'Manager'
 		flash[:notice] = "You need administrative priviledges to use this section. Please sign in with an Administrative access."
 		redirect_to :controller => "main", :action => "index"
+		return
 	end
 	return true
 end

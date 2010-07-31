@@ -17,16 +17,15 @@ class JobsController < ApplicationController
     products = params[:products].split("||");
     products_list = []
     engineer = params[:engineer]
-	 supervisor = params[:supervisor]
     well = params[:well]
     rig = params[:rig]
     truck = params[:truck]
     explosive_van = params[:explosive_van]
 	 client_name = params[:client_name]
-    if engineer.strip.length == 0 || supervisor.strip.length == 0 || well.strip.length == 0 || 
+    if engineer.strip.length == 0 || well.strip.length == 0 || 
     	rig.strip.length == 0 || truck.strip.length == 0 || explosive_van.strip.length == 0 || 
     	client_name.strip.length == 0 
-    	render :text => "Please provide valid inputs for Engineer, Supervisor, Truck, Well, Rig, Explosive Van and Client Name" 
+    	render :text => "Please provide valid inputs for Engineer, Truck, Well, Rig, Explosive Van and Client Name" 
       return
     end
     products.each do |p|
@@ -49,7 +48,6 @@ class JobsController < ApplicationController
     j = Job.new
 	 j.user_id = session[:user_id]
 	 j.engineer = engineer
-	 j.gun_shop_superviser = supervisor
 	 j.well = well	 
 	 j.rig = rig
 	 j.truck = truck
