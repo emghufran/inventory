@@ -19,7 +19,7 @@
   	</tr>
 </table>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<div><span id="error" class='error' style="display:none;"></div>
+<div><span id="error" class='error' style="display:none;"></span></div>
 <div class="large-text">
 <% if @job and @job.attachment_path and @job.attachment_path.strip.length > 0
 	filepath = @job.attachment_path.strip.sub(/^public/, '')

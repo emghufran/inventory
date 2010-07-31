@@ -1,5 +1,5 @@
 <div class='heading-text'>Movements</div>
-<div><span id="error" class='error' style="display:<%= (flash[:notice] && flash[:notice].length > 0 ? 'block' : 'none')%>;"><%=flash[:notice] if flash[:notice] && flash[:notice].length > 0 %></div>
+<div><span id="error" class='error' style="display:<%= (flash[:notice] && flash[:notice].length > 0 ? 'block' : 'none')%>;"><%=flash[:notice] if flash[:notice] && flash[:notice].length > 0 %></span></div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <form action="/movement/create" method="post">
 <div style="float:left;width:150px;" class='large-text'>Product:&nbsp;&nbsp;</div>
@@ -43,14 +43,14 @@ To:</div><div style='float:left;'><select name="bunkers_to" id="bunkers_to">
 <div id ="div_to_bunker" style="color: blue; visibility: hidden;float:left;">TCP</div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div class="large-text" style="width:150px;float:left;">
-Location:</div><div style="float:left;"><input type="text" name="overseas_location" id="overseas_location" value="" disabled="true"/>
+Location:</div><div style="float:left;"><input type="text" name="overseas_location" id="overseas_location" value="" disabled="disabled"/>
 </div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
 <div class="large-text" style="width:150px;float:left;">
 Quantity:</div><div style="float:left;"><input type="text" name="quantity" id="quantity" value=""/>
 </div>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
-<input type="submit" value="Move" />
+<div style="width:150px;float:left;"><input type="submit" value="Move" /></div>
 </form>
 <% @products.each do |p| %>
   <input type="hidden" id='<%= "product_#{p.id}" %>' value="<%=p.description%>" />

@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <div id="header">
-        <%= image_tag("logo.png", :alt => "Schlumberger", :class => "round") %>
+        <%= image_tag("images.jpg", :alt => "Schlumberger", :class => "round") %>
         <ul class="navigation round">
           <li><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %></li>
           <li><%= link_to "Home", '/' %></li>
@@ -25,9 +25,7 @@
 	  <% end %>
         </ul>
       </div>
-      <div><h1>Explosive Management System</h1>
-
-      </div>
+      <div><h1>Explosive Management System</h1></div>
       <div id="content" class="round">
         <%= yield %>
       </div>

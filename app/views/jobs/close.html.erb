@@ -13,7 +13,7 @@
 
 <input type="hidden" value="<%=form_authenticity_token()%>" id="authenticity_token"/>
 <input type="hidden" value="<%=@job.id%>" id="job_id"/>
-<div><span id="error" class='error' style="display:none;"></div>
+<div><span id="error" class='error' style="display:none;"></span></div>
 <table>
 <tr class='large-text'><th>ID</th><th>Part</th><th>Bunker</th><th>Quantity</th><th>Consumed</th><th>Signed In</th><th>Junk</th></tr>
 <% if(@job_details.length == 0) %>

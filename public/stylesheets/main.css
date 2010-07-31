@@ -57,7 +57,7 @@ ul.navigation {
 
 .navigation li {
   list-style-type: none;
-  display: inline-block;
+  display: inline;
   padding: 0.2em 0;
 }
 
