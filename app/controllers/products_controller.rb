@@ -115,6 +115,8 @@ class ProductsController < ApplicationController
     else
         flash[:notice] = 'Inventory cannot be updated at this time.'
     end
+    redirect_to :controller => "products", :action => "update_inventory"
+    return
   end
   
   def upload_file

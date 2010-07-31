@@ -1,4 +1,5 @@
 <div class="heading-text">Update Inventory</div>
+<div class="notice" style="display:<%=(flash[:notice] && flash[:notice].length > 0 ? 'block' : 'none') %>;"><%= flash[:notice] %></div>
 <div class="vseparate">&nbsp;</div>  
   <form action="/products/update_inventory_submit" method="post">
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token -%>" />
