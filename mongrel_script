@@ -10,7 +10,7 @@ app_dir = '/home/inventory/code'
 
 apps = {
   'inventory' => 3000,
-  'inventory_test' => 3001
+  'inventory_test' => 8000
 }
 
 if ['stop', 'restart'].include? ARGV.first
