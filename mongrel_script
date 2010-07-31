@@ -40,6 +40,7 @@ end
 if ['kill'].include? ARGV.first
     system("kill -9 `ps -ef | grep mongrel_rails | grep -v grep | awk '{print $2}'`")
     system("rm /home/inventory/code/inventory/log/mongrel.pid")
+    system("rm /home/inventory/code/inventory_test/log/mongrel.pid")
 end
 
 unless ['start', 'stop', 'restart', 'update', 'kill'].include? ARGV.first
