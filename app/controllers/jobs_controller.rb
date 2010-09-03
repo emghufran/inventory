@@ -363,4 +363,23 @@ class JobsController < ApplicationController
 	 
 	 render :text => "SUCCESS"
   end
+  def hazmat_form
+    debugger
+  	 @job = Job.find(params[:id])
+  	 if(!@job || @job.nil?)
+  	 	render :text => "No record for the requested Job."
+  	 	return
+  	 end
+
+  	 @job_details = JobDetail.find(:all, :conditions => ["job_id = ? ", @job.id],
+  	 						:joins => " INNER JOIN products p ON job_details.part_id = p.id
+  	 										INNER JOIN bunkers b ON job_details.bunker_id = b.id
+  	 										INNER JOIN update_inventories ui ON job_details.part_id = ui.part_id AND job_details.bunker_id = ui.bunker_id ",
+  	 						:select => "job_details.*, p.part_number, p.description AS part_desc, b.name AS bunker_name, ui.quantity AS available_quantity" )
+
+    file_path = create_hazmat_form(@job,@job_details)
+    send_file file_path
+  end
+
+
 end
