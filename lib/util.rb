@@ -93,3 +93,20 @@ def validate_admin_authentication
 	end
 	return true
 end
+
+def create_hazmat_form(job, job_details)
+	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_hazmat_form.csv"
+	file = File.open(file_path, "w")
+	file.puts "Engineer,Truck,Rig,Well,Explosive Van,Client Name"
+  file.puts "#{job.engineer},#{job.truck},#{job.rig} ,#{job.well} ,#{job.explosive_van} ,#{job.client_name}"
+  file.puts ""
+  file.puts "ID,Part,Bunker,Quantity,Avail. Quantity"
+	write_str = ''
+	job_details.each do |r|
+		write_str = "shebi,baby,taby,chabby"
+		file.puts write_str
+	end
+	file.close
+	return file_path
+end
+

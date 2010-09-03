@@ -10,9 +10,9 @@
   <tr class="normal-text">
     <td class="table-border"><%= label_tag bunker[:name]%></td>
     <td class="table-border"><%= label_tag bunker[:location] %></td>
-    <td class="table-border"><%= link_to 'Show', bunker %></td>
+    <td class="table-border"><%= link_to 'View', bunker %></td>
     <td class="table-border"><%= link_to 'Edit', edit_bunker_path(bunker) %></td>
-    <td class="table-border"><%= link_to 'Destroy', bunker, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="table-border"><%= link_to 'Delete', bunker, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

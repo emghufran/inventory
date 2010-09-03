@@ -20,7 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   map.close_job "/jobs/close/:id", :controller => 'jobs', :action => 'close', :requirements => { :id => /\d+/}
   map.close_job_action "/jobs/close_job", :controller => 'jobs', :action => 'close_job', :requirements => { :id => /\d+/} 
   map.notify_low_inventory "/jobs/notify_low_inventory", :controller => 'jobs', :action => 'notify_low_inventory' 
-  
+  map.hazmat_form "/jobs/hazmat_form/:id", :controller => 'jobs', :action => 'hazmat_form'
   map.receive "/orders/receive", :controller => 'orders', :action => 'receive'
   map.get_existing_quantity "/products/get_existing_quantity", :controller => 'products', :action => 'get_existing_quantity'
   map.update_inventory "/products/update_inventory", :controller => 'products', :action => 'update_inventory'
