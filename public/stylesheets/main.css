@@ -1,10 +1,13 @@
+a, a:visited {
+  color:#003366;
+}
 .container {
   width: 1000px;
   margin: 0 auto;
 }
 
 body {
-  background: #cff;
+  /*background: #cff;*/
 }
 
 #header {
@@ -26,17 +29,20 @@ body {
 /* Links */
 
 a {
-  color: #09c;
+  /*color: #09c;*/
+  color: #003366;
   text-decoration: none;
 }
 
 a:hover {
-  color: #069;
+  /*color: #069;*/
+  color: #003366;
   text-decoration: underline;
 }
 
 a:visited {
-  color: #069;
+  /*color: #069;*/
+  color: #003366;
 }
 
 /* Navigation */

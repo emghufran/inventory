@@ -7,33 +7,36 @@
     <%= javascript_include_tag :defaults %>
   </head>
   <body>
+	<div id="header-new" style="line-height:60px;background:#003366;color:#ffffff;">
+		<table>
+			<tr style="text-align:center;">
+				<td style="width:250px;border:none;text-align:center;font-size:25px;">Schulmberger</td>
+				<td style="width:450px;border:none;text-align:center;">&nbsp;</td>
+			        <td style="width:150px;border:none;"><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %></td>
+		 	        <td style="width:75px;border:none;"><%= link_to "Home", '/', :style => 'color:#ffffff;' %></td>
+	  			<% if(session[:user_id].blank? or session[:user_id] <= 0) %>
+			            	<td style="width:75px;border:none;"><%= link_to "Sign in", '/login', :style => 'color:#ffffff;' %></td>
+			            	<td style="width:75px;border:none;"><%= link_to "Sign up", '/signup', :style => 'color:#ffffff;' %></td>
+				<% else %>
+			       		<td style="width:75px;border:none;"><%= link_to "Sig out", '/logout', :style => 'color:#ffffff;' %></td>
+				<% end %>
+			  	<% if session[:role_id] == 3 %>
+			            	<td style="width:75px;border:none;"><%= link_to "Admin", '/admin', :style => 'color:#ffffff;' %></td>
+				<% end %>	
+
+			</tr>
+	  	</table>	
+	</div>
     <div class="container">
-      <div id="header">
-        <%= image_tag("images.jpg", :alt => "Schlumberger", :class => "round") %>
-        <ul class="navigation round">
-          <li><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %></li>
-          <li><%= link_to "Home", '/' %></li>
-          <!-- <li><%= link_to "Help", '#' %></li> --> 
-	  <% if(session[:user_id].blank? or session[:user_id] <= 0) %>
-            <li><%= link_to "Sign in", '/login' %></li>
-            <li><%= link_to "Sign up", '/signup' %></li>
-	  <% else %>
-            <li><%= link_to "Sign out", '/logout' %></li>
-	  <% end %>
-	  <% if session[:role_id] == 3%>
-            <li><%= link_to "Admin", '/admin' %></li>
-	  <% end %>
-        </ul>
-      </div>
-      <div><h1>Explosive Management System</h1></div>
+      <div style="text-align:center;"><h2>Explosive Management System</h2></div>
       <div id="content" class="round">
         <%= yield %>
       </div>
     </div>
     <div id="footer">
       <ul class="navigation round">
-        <li><%= link_to "About", '#' %></li>
-        <li><%= link_to "Contact", '#' %></li>
+        <li><%= link_to "About", '#', :style => 'color:#003366;'  %></li>
+        <li><%= link_to "Contact", '#', :style => 'color:#003366;'  %></li>
       </ul>
     </div>
 
