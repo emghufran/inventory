@@ -37,8 +37,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :session
   #map.root :controller => 'main'
-  map.home '', :controller => 'sessions', :action => 'new' 
-  #map.home '', :controller => 'main', :action => 'index' 
+  #map.home '', :controller => 'sessions', :action => 'new' 
+  map.home '', :controller => 'main', :action => 'index' 
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
