@@ -100,10 +100,11 @@ def create_hazmat_form(job, job_details)
 	file.puts "Engineer,Truck,Rig,Well,Explosive Van,Client Name"
   file.puts "#{job.engineer},#{job.truck},#{job.rig} ,#{job.well} ,#{job.explosive_van} ,#{job.client_name}"
   file.puts ""
-  file.puts "ID,Part,Bunker,Quantity,Avail. Quantity"
+  file.puts "Part No,Description,Out,Use,In,Un #,Class,NEC,Quantity,Weight(gr),Junk"
 	write_str = ''
-	job_details.each do |r|
-		write_str = "shebi,baby,taby,chabby"
+	debugger
+  job_details.each do |r|
+		write_str = r[:part_number] + ","+r[:description].gsub(/[,]/, ' ')  +","+r[:quantity].to_s+", , ,"+r[:un_num]+","+r[:class_name]+", ,"+r[:quantity].to_s+","+(r[:quantity]*r[:net_weight].to_i).to_s+","
 		file.puts write_str
 	end
 	file.close
