@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
-    before_filter :validate_authentication 
+    before_filter :validate_authentication
+    before_filter :validate_admin_authentication, :only => [:approve_job] 
   def new
     #validate_authentication
     @existing_quantity = 0

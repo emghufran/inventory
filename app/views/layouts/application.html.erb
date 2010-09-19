@@ -10,7 +10,7 @@
 	<div id="header-new" style="line-height:60px;background:#003366;color:#ffffff;">
 		<table>
 			<tr style="text-align:center;">
-				<td style="width:250px;border:none;text-align:center;font-size:25px;">Schulmberger</td>
+				<td style="width:250px;border:none;text-align:center;font-size:25px;">Schlumberger</td>
 				<td style="width:450px;border:none;text-align:center;">&nbsp;</td>
 			        <td style="width:150px;border:none;"><%= "Welcome, " + (session[:user_name].blank? ? 'Guest!' : session[:user_name]) %></td>
 		 	        <td style="width:75px;border:none;"><%= link_to "Home", '/', :style => 'color:#ffffff;' %></td>
@@ -18,11 +18,8 @@
 			            	<td style="width:75px;border:none;"><%= link_to "Sign in", '/login', :style => 'color:#ffffff;' %></td>
 			            	<td style="width:75px;border:none;"><%= link_to "Sign up", '/signup', :style => 'color:#ffffff;' %></td>
 				<% else %>
-			       		<td style="width:75px;border:none;"><%= link_to "Sig out", '/logout', :style => 'color:#ffffff;' %></td>
+			       		<td style="width:75px;border:none;"><%= link_to "Sign out", '/logout', :style => 'color:#ffffff;' %></td>
 				<% end %>
-			  	<% if session[:role_id] == 3 %>
-			            	<td style="width:75px;border:none;"><%= link_to "Admin", '/admin', :style => 'color:#ffffff;' %></td>
-				<% end %>	
 
 			</tr>
 	  	</table>	

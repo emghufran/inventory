@@ -1,7 +1,7 @@
 class MovementController < ApplicationController
   before_filter :validate_authentication
   def index
-  	 @existing_quantity = 0
+    @existing_quantity = 0
     @products = Product.find(:all,:order => 'id ASC')
     @bunkers = Bunker.find(:all, :order => 'id ASC')
     product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", @products[0].id, @bunkers[0].id] ) if @bunkers and @products

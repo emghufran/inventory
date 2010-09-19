@@ -2,7 +2,8 @@ class MailManagersController < ApplicationController
   # GET /mail_managers
   # GET /mail_managers.xml
   
-  before_filter :validate_admin_authentication 
+  before_filter :validate_authentication 
+  before_filter :validate_admin_authentication, :only => [:new, :create, :edit, :update, :destroy]
   def index
     @mail_managers = MailManager.find(:all)
 

@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
     layout 'application'
-	 before_filter :validate_authentication
+	#before_filter :validate_authentication
+	before_filter :validate_admin_authentication
     def pending_users
         @pending_users = User.find(:all, :conditions => "is_approved = 0", :order => 'id DESC') 
     end
