@@ -16,6 +16,7 @@
   	<tr class="large-text">
   		<td width="90">Job Status:</td><td width="110"><%=@job.status%></td>
   		<td width="90">Date:</td><td width="110"><%=@job.created_at.strftime('%d/%m/%Y') %></td>
+                <td width="90">Hazmat Form:</td><td width="110"><a href="/jobs/hazmat_form/<%=@job.id%>">Download</a></td>
   	</tr>
 </table>
 <div style="clear:both;line-height:5px;">&nbsp;</div>
