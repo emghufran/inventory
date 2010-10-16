@@ -5,7 +5,7 @@
   <p class="large-text"><%= label_tag 'Name:' %>&nbsp;
   <%= f.text_field :name %></p>
   <p class="large-text"><%= label_tag 'Location:' %>&nbsp;
-  <%= select_tag "bunker[location]", options_for_select([ "Islamabad", "Khaskeli", "Sukkar" ], @bunker[:location]) %></p>
+  <%= select_tag "bunker[location]", options_for_select([ "Islamabad", "Khaskheli", "Sukkur" ], @bunker[:location]) %></p>
   <p>
     <%= f.submit "Update" %>
   </p>
