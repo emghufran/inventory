@@ -54,7 +54,7 @@ end
 def write_explosive_csv(results, location)
 	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_#{location}_explosives_summary_location_based.csv"
 	file = File.open(file_path, "w")
-	file.puts " Part Number,Description,Received,Fmt in, Field in,Field Out,Fmt out ,Field Junk,Used,Closing quantity,Opneing quantity"
+	file.puts " Part Number,Description,Received,Fmt in, Field in,Field Out,Fmt out ,Field Junk,Used,Closing quantity,Opening quantity"
 	write_str = ''
 	results.each do |r|
 		write_str = r.collect {|elem| elem = '' if !elem; elem.gsub(',', '')}.join(',')

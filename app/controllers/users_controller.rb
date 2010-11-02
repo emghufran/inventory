@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   
-  before_filter :validate_admin_authentication, :only => [ :activate ]
+  before_filter :validate_authentication
+  before_filter :validate_admin_authentication, :only => [:index,:edit, :activate, :destroy]
   
   # render new.rhtml
   def new
@@ -57,4 +58,42 @@ class UsersController < ApplicationController
 	 	redirect_to :controller => 'main', :action => 'index'
 	 end
   end
+  def index
+    @users = User.find(:all)
+    respond_to do |format|
+      format.html  #index.html.erb
+      format.xml  { render :xml => @bunkers }
+    end
+  end
+  def show
+    @user = User.find(params[:id])
+    if @user[:role]=="Manager"
+      @user[:role]="Administrator"
+    end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @user }
+    end
+  end
+  def edit
+    @user = User.find(params[:id])
+    if(@user[:role]=="Manager")
+      @user[:role]="Administrator"
+    end
+  end
+  def update
+    @user = User.find(params[:id])
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        session[:location]=@user.location
+        flash[:notice] = 'User was successfully updated.'
+        format.html { redirect_to(@user) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @bunker.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
 end

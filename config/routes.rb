@@ -1,9 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
  
-  map.report_job_bunker "/reports/explosive_bunker_based/:location", :controller => "reports", :action => "explosive_bunker_based"
-  map.report_job_location "/reports/explosive_location_based/:location", :controller => "reports", :action => "explosive_location_based"
-  map.report_job_fmt "/reports/fmt_in_out", :controller => "reports", :action => "fmt_in_out"
-  map.report_job_summary "/reports/job_summary", :controller => "reports", :action => "job_summary"
+  map.report_job_bunker "/reports/explosive_bunker_based/:location/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day", :controller => "reports", :action => "explosive_bunker_based"
+  map.report_job_location "/reports/explosive_location_based/:location/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day", :controller => "reports", :action => "explosive_location_based"
+  map.report_job_fmt "/reports/fmt_in_out/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day", :controller => "reports", :action => "fmt_in_out"
+  map.report_job_summary "/reports/job_summary/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day", :controller => "reports", :action => "job_summary"
   map.report_explosives_quantities "/reports/explosives_quantities", :controller => "reports", :action => "explosives_quantities"
   map.movement_index "/movement", :controller => "movement", :action => "index" 
   map.movement_create "/movement/create", :controller => "movement", :action => "create" 
@@ -27,12 +27,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bunkers
 
   map.resources :products
-
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.activate_user "/users/activate/:id", :controller => 'users', :action => 'activate'
+  map.index_user "/users/index", :controller => 'users', :action => 'index'
   map.resources :users
   
   map.resource :session

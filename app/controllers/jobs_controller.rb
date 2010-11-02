@@ -5,7 +5,7 @@ class JobsController < ApplicationController
     #validate_authentication
     @existing_quantity = 0
     @products = Product.find(:all,:order => 'id ASC')
-    @bunkers = Bunker.find(:all, :order => 'id ASC')
+    @bunkers = Bunker.find(:all, :conditions => ["location ='"+session[:location]+"'"],:order => 'id ASC')
     product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", @products[0].id, @bunkers[0].id] ) if @bunkers and @products
     @existing_quantity = product_count.quantity unless product_count.nil?
   end
@@ -96,7 +96,7 @@ class JobsController < ApplicationController
   	 
   	 
   	 @products = Product.find(:all,:order => 'id ASC')
-    @bunkers = Bunker.find(:all, :order => 'id ASC')
+    @bunkers = Bunker.find(:all, :conditions => ["location ='"+session[:location]+"'"],:order => 'id ASC')
     product_count = UpdateInventory.find( :first, :conditions => ["part_id = ? and bunker_id = ?", @products[0].id, @bunkers[0].id] ) if @bunkers and @products
     @existing_quantity = product_count.quantity unless product_count.nil?
   end
@@ -208,7 +208,7 @@ class JobsController < ApplicationController
 		 job_details.each do |jd|
 		 	if(jd.part_id == prd[0] and jd.bunker_id == prd[1])
 		 		error_prd = Product.find(prd[0])
-	    	 	render :text => "Part Number #{error_prd.part_number} already exists. Use update to change quantity." 
+	    	 	render :text => "Part Number #{error_prd.part_number} already exists. Use change to update quantity."
    	 	 	return
 		 	end
 		 end  

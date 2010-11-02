@@ -16,7 +16,7 @@ function updateQuantity(part_id, bunker_id, update_div)
       }
       //alert("Success! \n\n" + response);
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
 
   });
   //alert(response);
@@ -60,9 +60,9 @@ function addProductToList() {
     $(unique_id).remove();  
   }
 
-  $('product-list-hid').insert("<input type='hidden' value='"+ unique_value +"' name='products[]' id='" + unique_id + "' />", { position : "bottom" });
+  $('product-list-hid').insert("<input type='hidden' value='"+ unique_value +"' name='products[]' id='" + unique_id + "' />", {position : "bottom"});
   $('product-list').insert("<div class='normal-text' id='dis_" + unique_id + "'><div style='float:left;width:280px;' >"+ product_detail + "</div><div style='float:left;width:150px;'>" + bunker_name + "</div><div class='large-text' style='float:left;width:80px;'>" + quantity 
-    + "</div><div class='large-text' style='float:left;'><a href='javascript:;' onclick='removeProduct(\""+unique_id+"\");'>Remove</a></div><div style='clear:both;'></div></div>", { position : "bottom" });
+    + "</div><div class='large-text' style='float:left;'><a href='javascript:;' onclick='removeProduct(\""+unique_id+"\");'>Remove</a></div><div style='clear:both;'></div></div>", {position : "bottom"});
 
 }
 
@@ -110,7 +110,7 @@ function createJob() {
         displayError(response);
       }
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
 
   });
   //alert(response);
@@ -200,7 +200,7 @@ function validateAndUpdateJobProduct(unique_product) {
         displayError(response);
       }
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
   });	
 }
 
@@ -228,7 +228,7 @@ function removeProductFromJob(unique_product) {
         displayError(response);
       }
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
   });		  
 }
 
@@ -263,7 +263,7 @@ function addProductsToExistingJob() {
         displayError(response);
       }
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
 
   });
   //alert(response);
@@ -322,7 +322,7 @@ function validateAndClose() {
         displayError(response);
       }
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
   });
   return;
 }
@@ -341,7 +341,7 @@ function notifyLowInventory() {
     	displayError("Inventory Managers have been notified.");
       //response = transport.responseText || "no response text";
     },
-    onFailure: function(){ alert('Something went wrong...') }
+    onFailure: function(){alert('Something went wrong...')}
   });
   return;	
 }
@@ -381,4 +381,35 @@ function movementOptionControl()
                 $('div_to_bunker').style.visibility = 'hidden';
                 $('div_from_bunker').style.visibility = 'hidden';
 	}
-} 
+}
+function getReport(reportname)
+{
+    var start_year = $('start_date_year').value;
+    var start_month = $('start_date_month').value;
+    var start_day = $('start_date_day').value;
+
+    var end_year = $('end_date_year').value;
+    var end_month = $('end_date_month').value;
+    var end_day = $('end_date_day').value;
+    
+    var start_date =new Date(start_year,start_month-1,start_day);
+    var end_date = new Date(end_year,end_month-1,end_day);
+
+    if((start_date.getMonth() + 1 != start_month) || (start_date.getDate() !=  start_day ) || (start_date.getFullYear() != start_year ))
+        {
+            alert("Start date is not a valid date");return false;
+        }
+    if((end_date.getMonth() + 1 != end_month) || (end_date.getDate() !=  end_day ) || (end_date.getFullYear() != end_year ))
+        {
+            alert("End date is not a valid date");return false;
+        }
+
+    if(end_date<start_date)
+    {
+        alert('End date can not be smaller then start date');
+        return false;
+    }
+
+    window.location.href=reportname+"/"+start_year+"/"+start_month+"/"+start_day+"/"+end_year+"/"+end_month+"/"+end_day;
+    return false;
+}

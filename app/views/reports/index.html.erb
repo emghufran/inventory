@@ -1,12 +1,16 @@
 <div class="heading-text">Reports</div>
-<a href="/reports/explosive_location_based/Khaskeli">Khaskeli Explosives</a><br/>
-<a href="/reports/explosive_location_based/Sukkar">Sukkar Explosives</a><br/>
-<a href="/reports/explosive_location_based/Islamabad">Islamabad Explosives</a><br/>
+<br/>
+<label>Start Date:&nbsp;</label><%= select_date Date.today, :prefix => :start_date%>
+<br/>
+<label>End Date:&nbsp;&nbsp;&nbsp;</label><%= select_date Date.today, :prefix => :end_date%>
+<br/><br/>
+<a href="javascript:;" onclick="getReport('/reports/explosive_location_based/Khaskeili');return false;">Khaskeili Explosives</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/explosive_location_based/Sukkar');return false;">Sukkar Explosives</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/explosive_location_based/Islamabad');return false;">Islamabad Explosives</a><br/>
 
-<a href="/reports/explosive_bunker_based/Khaskeli">Khaskeli Bunkers Explosives</a><br/>
-<a href="/reports/explosive_bunker_based/Sukkar">Sukkar Bunkers Explosives</a><br/>
-<a href="/reports/explosive_bunker_based/Islamabad">Khor Bunkers Explosives</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/explosive_bunker_based/Khaskeili');return false;">Khaskeili Bunkers Explosives</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/explosive_bunker_based/Sukkar');return false;">Sukkar Bunkers Explosives</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/explosive_bunker_based/Islamabad');return false;">Islamabad Bunkers Explosives</a><br/>
 
-
-<a href="/reports/job_summary">Job Summary</a><br/>
-<a href="/reports/fmt_in_out">FMT IN/OUT</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/job_summary');return false;">Job Summary</a><br/>
+<a href="javascript:;" onclick="getReport('/reports/fmt_in_out');return false;">FMT IN/OUT</a><br/>

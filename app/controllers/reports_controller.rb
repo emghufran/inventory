@@ -23,8 +23,10 @@ class ReportsController < ApplicationController
 	 FROM jobs j
     INNER JOIN job_details jd ON j.id = jd.job_id
     INNER JOIN products p ON jd.part_id = p.id
-    WHERE j.status =  'Approved' OR ( j.status =  'Closed' AND 
-    DATE_FORMAT( j.updated_at,  '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) ,  '%Y-%m-01' ) )
+    WHERE j.status =  'Approved' OR ( j.status =  'Closed'
+    AND DATE(j.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+    AND DATE(j.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
+ )
     GROUP BY p.id, j.id
     ORDER BY j.id")
     
@@ -42,8 +44,10 @@ FROM movements m
 INNER JOIN products p ON p.id = m.part_id
 INNER JOIN bunkers b ON b.id = from_id
 WHERE (m.movement_type = 'FMTOUT'
-OR m.movement_type = 'FMTIN') And 
-DATE_FORMAT( m.updated_at,  '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) ,  '%Y-%m-01' )
+OR m.movement_type = 'FMTIN')
+AND DATE(m.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(m.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
+
 GROUP BY p.part_number, p.description, p.um, b.location_code
 Order By b.location_code")
 
@@ -66,7 +70,8 @@ INNER JOIN bunkers b on jd.bunker_id = b.id and b.location='"+params[:location]+
 WHERE j.status = 'Approved'
 OR (
 j.status = 'Closed'
-AND DATE_FORMAT( j.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
+AND DATE(j.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(j.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
 )
 GROUP BY p.id, b.location
 ) field on field.part_id = pr.id
@@ -80,8 +85,10 @@ FROM movements m
 INNER JOIN products p ON p.id = m.part_id
 INNER JOIN bunkers b ON b.id = from_id and b.location = '"+params[:location]+"'
 WHERE (m.movement_type = 'FMTOUT'
-OR m.movement_type = 'FMTIN') And
-DATE_FORMAT( m.updated_at,  '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) ,  '%Y-%m-01' )
+OR m.movement_type = 'FMTIN') 
+AND DATE(m.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(m.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
+
 GROUP BY p.id,p.part_number, p.description, p.um, b.location
 
 )FMT on FMT.part_id = pr.id
@@ -91,7 +98,10 @@ left outer join
 (
 select part_id,SUM(received_quantity) Received from orders o
 inner join bunkers b on o.bunker_id = b.id and b.location = '"+params[:location]+"'
-Where o.status = 'received' and DATE_FORMAT( o.updated_at,  '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) ,  '%Y-%m-01' )
+Where o.status = 'received'
+AND DATE(o.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(o.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
+
 Group by part_id) received on received.part_id = pr.id
 left outer join
 (
@@ -129,7 +139,9 @@ INNER JOIN bunkers b on jd.bunker_id = b.id and b.location='"+params[:location]+
 WHERE j.status = 'Approved'
 OR (
 j.status = 'Closed'
-AND DATE_FORMAT( j.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
+AND DATE(j.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(j.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
+
 )
 GROUP BY p.id, b.id
 ) field on field.part_id = p.id and field.bunker_id = b.id
@@ -143,8 +155,10 @@ FROM movements m
 INNER JOIN products p ON p.id = m.part_id
 INNER JOIN bunkers b ON b.id = from_id and b.location = '"+params[:location]+"'
 WHERE (m.movement_type = 'FMTOUT'
-OR m.movement_type = 'FMTIN') And
-DATE_FORMAT( m.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
+OR m.movement_type = 'FMTIN')
+AND DATE(m.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(m.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
+
 GROUP BY p.id,b.id
 )fmt on fmt.part_id = p.id and fmt.bunker_id = b.id
 left outer join
@@ -152,7 +166,9 @@ left outer join
 (
 select b.id bunker_id,part_id,SUM(received_quantity) Received from orders o
 inner join bunkers b on o.bunker_id = b.id and b.location = '"+params[:location]+"'
-Where o.status = 'received' and DATE_FORMAT( o.updated_at, '%Y-%m-%d' ) >= DATE_FORMAT( NOW( ) , '%Y-%m-01' )
+Where o.status = 'received'
+AND DATE(o.updated_at) >= DATE('"+params[:start_year]+"-"+params[:start_month]+"-"+params[:start_day]+"')
+AND DATE(o.updated_at) <= DATE('"+params[:end_year]+"-"+params[:end_month]+"-"+params[:end_day]+"')
 Group by part_id,b.id
 ) received on received.part_id = p.id and b.id = received.bunker_id
 order by b.name")

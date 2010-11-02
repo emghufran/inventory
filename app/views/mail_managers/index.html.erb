@@ -2,16 +2,17 @@
 
 <table>
   <tr class='large-text'>
-    <th>Email</th><th>Role</th><th></th><th></th>
+    <th>Email</th><th>Role</th><th>Location</th><th></th>
   </tr>
 
 <% for mail_manager in @mail_managers %>
   <tr class='normal-text'>
   	 <td><%= mail_manager.email %></td>
   	 <td><%= mail_manager.role %></td>
-    <td><%= link_to 'Show', mail_manager %></td>
+         <td><%= mail_manager.location %></td>
+    <td><%= link_to 'View', mail_manager %></td>
     <td><%= link_to 'Edit', edit_mail_manager_path(mail_manager) %></td>
-    <td><%= link_to 'Destroy', mail_manager, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Delete', mail_manager, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

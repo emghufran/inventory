@@ -2,7 +2,7 @@ class BunkersController < ApplicationController
   # GET /bunkers
   # GET /bunkers.xml
   before_filter :validate_authentication
-  before_filter :validate_admin_authentication, :only => [:create, :delete, :new]
+  before_filter :validate_admin_authentication, :only => [:new, :create, :edit, :update, :destroy]
   def index
     @bunkers = Bunker.find(:all)
 

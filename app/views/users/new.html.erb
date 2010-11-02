@@ -11,6 +11,8 @@
 
 <div class="large-text floatleft140"><%= label_tag 'Email:' %></div>
 <div><%= f.text_field :email %></div>
+<div class="large-text floatleft140"><%= label_tag 'Location:' %></div>
+<div><%= select_tag "user[location]", options_for_select([ "Islamabad", "Khaskeili", "Sukkar" ]) %></div>
 
 <div class="large-text floatleft140"><%= label_tag 'Password:' %></div>
 <div><%= f.password_field :password %></div>
