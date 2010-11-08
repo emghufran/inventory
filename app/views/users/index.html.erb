@@ -1,0 +1,25 @@
+<div class="heading-text">List of Users</div>
+
+<table cellpadding="3" >
+  <tr class="large-text">
+  <td><%= label_tag 'Name'%></td>
+  <td><%= label_tag 'Email' %></td>
+  <td><%= label_tag 'Role' %></td>
+  <td><%= label_tag 'Location' %></td>
+
+  </tr>
+
+<% for user in @users %>
+  <tr class="normal-text">
+    <td class="table-border"><%= label_tag user[:name]%></td>
+    <td class="table-border"><%= label_tag user[:email]%></td>
+    <%if(user[:role]=="Manager")
+      user[:role]="Administrator"
+    end%>
+    <td class="table-border"><%= label_tag user[:role]%></td>
+    <td class="table-border"><%= label_tag user[:location] %></td>
+    <td class="table-border"><%= link_to 'View', user %></td>
+    <td class="table-border"><%= link_to 'Edit', edit_user_path(user) %></td>
+  </tr>
+<% end %>
+</table>

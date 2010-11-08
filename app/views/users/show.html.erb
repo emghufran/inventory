@@ -1,0 +1,17 @@
+<table cellpadding="3" >
+  <tr>
+  <td class="large-text"><%= label_tag 'User'%></td>
+  <td class="large-text"><%= label_tag 'Email' %></td>
+  <td class="large-text"><%= label_tag 'Role'%></td>
+  <td class="large-text"><%= label_tag 'Location' %></td>
+  </tr>
+<tr class="normal-text">
+  <td class="table-border"><%= label_tag @user[:name]%></td>
+  <td class="table-border"><%= label_tag @user[:email]%></td>
+  <td class="table-border"><%= label_tag @user[:role]%></td>
+  <td class="table-border"><%= label_tag @user[:location] %></td>
+  </tr>
+</table>
+
+<div class="large-text"><%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %></div>

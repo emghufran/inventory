@@ -95,19 +95,57 @@ def validate_admin_authentication
 end
 
 def create_hazmat_form(job, job_details)
-	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_hazmat_form.csv"
-	file = File.open(file_path, "w")
-	file.puts "Engineer,Truck,Rig,Well,Explosive Van,Client Name"
-  file.puts "#{job.engineer},#{job.truck},#{job.rig} ,#{job.well} ,#{job.explosive_van} ,#{job.client_name}"
-  file.puts ""
-  file.puts "Part No,Description,Out,Use,In,Un #,Class,NEC,Quantity,Weight(gr),Junk"
-	write_str = ''
-	debugger
-  job_details.each do |r|
-		write_str = r[:part_number] + ","+r[:description].gsub(/[,]/, ' ')  +","+r[:quantity].to_s+", , ,"+r[:un_num]+","+r[:class_name]+", ,"+r[:quantity].to_s+","+(r[:quantity]*r[:net_weight].to_i).to_s+","
-		file.puts write_str
-	end
-	file.close
-	return file_path
+#	file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_hazmat_form.csv"
+#	file = File.open(file_path, "w")
+#	file.puts ""
+#  file.puts "#{job.engineer},#{job.truck},#{job.rig} ,#{job.well} ,#{job.explosive_van} ,#{job.client_name}"
+#  file.puts ""
+#  file.puts "Part No,Description,Out,Use,In,Un #,Class,NEC,Quantity,Weight(gr),Junk"
+#	write_str = ''
+#  job_details.each do |r|
+#		write_str = r[:part_number] + ","+r[:description].gsub(/[,]/, ' ')  +","+r[:quantity].to_s+", , ,"+r[:un_num]+","+r[:class_name]+", ,"+r[:quantity].to_s+","+(r[:quantity]*r[:net_weight].to_i).to_s+","
+#		file.puts write_str
+#	end
+#	file.close
+#	return file_path
+
+  require "spreadsheet"
+file_path = "#{RAILS_ROOT}/reports/" + Time.now.strftime('%Y%m%d') + "_hazmat_form.csv"
+book = Spreadsheet::Workbook.new
+sheet1 = book.create_worksheet #default sheet name Worksheet1
+sheet1.name = 'Hazmat Form'
+
+sheet1.row(0).push 'Hazmat Form'
+sheet1.row(0).height = 20
+sheet1.column(0).width = 20
+sheet1.column(1).width = 40
+
+sheet1.row(1).push 'Engineer:', job.engineer
+sheet1.row(2).push 'Truck:',job.truck
+sheet1.row(3).push 'Rig:', job.rig
+sheet1.row(4).push 'Well:', job.well
+sheet1.row(5).push 'Explosive Van:',job.explosive_van
+sheet1.row(6).push 'Client Name:',job.client_name
+sheet1.row(8).push 'Part No','Description','Out','Use','In','Un #','Class','NEC','Quantity','Weight(gr)','Junk'
+
+current_row = 9
+job_details.each do |r|
+ sheet1.row(current_row).push r[:part_number] ,r[:description].gsub(/[,]/, ' ')  ,r[:quantity].to_s,'','',r[:un_num],r[:class_name],"",r[:quantity].to_s,(r[:quantity]*r[:net_weight].to_i).to_s
+ current_row = current_row +1
+end
+format = Spreadsheet::Format.new :color => :black,:weight => :bold,:size =>18
+sheet1.row(0).default_format = format
+
+  black_bold = Spreadsheet::Format.new :weight => :bold
+
+bold = Spreadsheet::Format.new :weight => :bold,:color => :gray
+6.times do |x| sheet1.row(x + 1).set_format(0, bold) end
+6.times do |x| sheet1.row(x + 1).set_format(1, black_bold) end
+
+sheet1.row(8).default_format = bold
+
+
+book.write file_path
+return file_path
 end
 

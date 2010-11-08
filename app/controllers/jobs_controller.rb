@@ -365,7 +365,8 @@ class JobsController < ApplicationController
 	 render :text => "SUCCESS"
   end
   def hazmat_form
-  	 @job = Job.find(params[:id])
+  	render :layout => false
+    @job = Job.find(params[:id])
   	 if(!@job || @job.nil?)
   	 	render :text => "No record for the requested Job."
   	 	return
@@ -379,6 +380,7 @@ class JobsController < ApplicationController
 
     file_path = create_hazmat_form(@job,@job_details)
     send_file file_path
+   
   end
 
 end
