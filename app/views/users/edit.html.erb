@@ -7,7 +7,7 @@
   <p class="large-text"><%= label_tag 'Role:' %>&nbsp;
   <%= select_tag "user[role]", options_for_select([ ["Administrator","Manager"],["Engineer","Engineer"]], @user[:role]) %></p>
   <p class="large-text"><%= label_tag 'Location:' %>&nbsp;
-  <%= select_tag "user[location]", options_for_select([ "Islamabad", "Khaskeili", "Sukkar" ], @user[:location]) %></p>
+  <%= select_tag "user[location]", options_for_select([ "Islamabad", "Khaskheli", "Sukkur" ], @user[:location]) %></p>
   <p>
     <%= f.submit "Update" %>
   </p>
